@@ -1,229 +1,155 @@
 # 使用指南
 
-本页面详细介绍 LLM-Algo-LeetCode 的四种学习方式，帮助你选择最适合自己的学习路径。
+本页只说明各章节该用什么环境学。
 
-## 🎓 四种学习方式对比
+## 先看结论
 
-| 学习方式 | 环境 | GPU | 测试方式 | 适合人群 |
-|---------|------|-----|---------|---------|
-| **🌐 网页 + 云端 GPU**<br>（零配置，推荐） | 免费云端<br>(Colab/魔搭) | ✅ 免费GPU | Notebook 内置测试 | 零基础 / 无本地环境 |
-| **💻 本地 + Jupyter Lab** | 本地虚拟环境 | 可选 | Notebook 内置测试 | 喜欢交互式编程 |
-| **🔧 本地 + VSCode + 脚本** | 本地虚拟环境 | 可选 | `test_notebook_answers.py` | 专业开发者 / 批量测试 |
-| **☁️ 其他 GPU 平台** | Kaggle/Paperspace 等 | ✅ 云端GPU | Notebook 内置测试 | 需要更强算力 |
-
-> **💡 快速选择：**
-> - 🆕 **零基础 / 无本地环境** → 使用方式 1（网页 + 云端 GPU），零配置开始学习
-> - 🏠 **有本地环境 / 喜欢 Jupyter** → 使用方式 2（本地 + Jupyter Lab）
-> - 👨‍💻 **专业开发者 / 需要批量测试** → 使用方式 3（本地 + VSCode + 脚本）
-> - 🚀 **需要更强算力** → 使用方式 4（其他 GPU 平台）
+| 你的目标 | 推荐环境 | 备注 |
+|---|---|---|
+| 先入门 Chapter 0 / 1 | 在线 Notebook 或本地基础环境 | 主要是 Python、Jupyter、NumPy |
+| 系统学习 Chapter 2 | 统一 Python 环境 + 本地 CPU；部分题再切 GPU | 大多数题可 CPU-first |
+| 完整学习 Chapter 3 | Linux + NVIDIA GPU + CUDA / Triton | GPU-required |
+| 想统一团队环境 | CNB / Docker / 云端 GPU | 适合一致性和复现 |
 
 ---
 
-## 方式 1：网页 + 云端 GPU（零配置，推荐新手）
+## 四层环境分层
 
-### 工作流程
+### 1. 轻量学习层
 
-1. **沉浸式阅读与学习**：在本网站查看题目描述、排版精美的数学公式和前置知识
-2. **一键跳转云端 IDE**：点击题目顶部的 **"Open In Colab"** 或 **"Open In ModelScope (魔搭)"** 徽章
-3. **在云端填空并测试**：浏览器会自动在免费的云端 GPU 环境中拉起对应的 Jupyter Notebook。你可以在 `TODO` 处敲入代码，并运行下方的 `test_xxx()` 测试用例验证正确性
-4. **防剧透与查看答案**：如果卡住，可以向下滚动穿过红色的 `🛑 STOP HERE 🛑` 缓冲带查看参考答案
-5. **参与讨论**：网页最底端接入了 GitHub Discussions 评论区，欢迎交流不同解法
+适用章节：
+- Chapter 0
+- Chapter 1
 
-### 优点
+环境特点：
+- Python
+- Jupyter / Notebook
+- NumPy / 基础科学计算
+- Colab / 在线 Notebook 可直接开始
 
-- ✅ **零环境配置**（最大优势）
-- ✅ **免费 GPU**（Colab/魔搭提供）
-- ✅ 随时随地学习（只需浏览器）
-- ✅ 适合快速试错
+这两章对部署要求低，重点是把基础概念和前置知识学稳，不需要一开始就上复杂容器或 GPU 工具链。
 
-### 缺点
+### 2. 主力学习层
 
-- ❌ 需要网络连接
-- ❌ 云端环境有时间限制
-- ❌ 不适合版本控制
+适用章节：
+- Chapter 2
 
----
+环境特点：
+- 统一 Python 环境
+- PyTorch
+- correctness 验证脚本
+- 本地 CPU 足够覆盖大多数题
 
-## 方式 2：本地 + Jupyter Lab
+- Chapter 2 是 **CPU-first**
+- 已确认至少 `21_Gradient_Checkpointing` 需要 NVIDIA GPU 才能测真实 CUDA 显存峰值
+- 学习时建议尽量使用同一套 Python 依赖，保证练习和验证结果一致
 
-### 工作流程
+### 3. 高门槛实验层
 
-```bash
-# 1. 克隆仓库
-git clone https://github.com/datawhalechina/llm-algo-leetcode.git
-cd llm-algo-leetcode
+适用章节：
+- Chapter 3
 
-# 2. 创建虚拟环境
-conda create -n llm_algo python=3.10 -y
-conda activate llm_algo
+环境特点：
+- Linux
+- NVIDIA GPU
+- CUDA
+- Triton
+- 编译工具链
 
-# 3. 安装依赖
-pip install -r requirements.txt
+- Chapter 3 是 **GPU-required**
+- 少数页面可能有阅读路径或 CPU fallback，但不构成完整学习路径
 
-# 4. 启动 Jupyter Lab
-jupyter lab
-```
+### 4. 统一交付层
 
-在浏览器中打开 notebook，逐个 cell 运行，运行内置的 `test_xxx()` 函数验证。
+适用场景：
+- 团队协作
+- 统一实验镜像
+- 云端开发
+- 需要减少本地环境差异时
 
-### 优点
+平台选项：
+- Colab
+- CNB
+- Docker
+- 云端 GPU 托管环境
 
-- ✅ 交互式编程体验
-- ✅ 可视化输出（图表、表格）
-- ✅ 可使用本地 GPU（如果有）
-- ✅ 支持 Markdown 渲染
-- ✅ 完全离线工作
+这层主要服务 Chapter 2 后段和 Chapter 3，目标是把“能跑”变成“大家都按同一套环境跑”。
 
-### 缺点
+当前验证状态：
+- **Colab**：已验证，可一键直达
+- **Docker**：推荐以 **40 系 NVIDIA GPU** 作为主基线，30 系可作为兼容目标，但不默认承诺
+- **CNB**：待仓库迁移后再做实机验证
+- **ModelScope / 其他在线 Notebook**：待验证
 
-- ❌ 需要配置本地环境
-- ❌ 不适合批量测试
+### Notebook 使用
 
----
-
-## 方式 3：本地 + VSCode + 脚本测试
-
-### 工作流程
-
-```bash
-# 1-3. 同方式 2（克隆仓库、创建环境、安装依赖）
-
-# 4. 用 VSCode 编辑 .ipynb 文件
-code 02_PyTorch_Algorithms/00_PyTorch_Warmup.ipynb
-
-# 5. 运行测试脚本
-python test_notebook_answers.py 02_PyTorch_Algorithms/00_PyTorch_Warmup.ipynb --mode both
-```
-
-### 优点
-
-- ✅ 完全离线工作
-- ✅ 可使用本地 GPU（如果有）
-- ✅ 版本控制友好（Git）
-- ✅ 可批量测试
-- ✅ 适合专业开发者
-
-### 缺点
-
-- ❌ 需要配置本地环境
-- ❌ 学习曲线稍高
-
-### 测试脚本说明
-
-详细的测试脚本使用方法，请查看 [贡献指南](./contributing.md)。
+- 执行单元格：`Shift + Enter` 或 `Ctrl + Enter`
+- 执行所有单元格：`Run -> Run All Cells`
+- 刷题流程：先看导学，再填 TODO，再跑测试
+- 如果 notebook 报 `name not defined`，通常是前面的 cell 没按顺序执行
 
 ---
 
-## 方式 4：其他 GPU 平台
+## Chapter 2 / 3 的实际要求
 
-### 支持的平台
+### Chapter 2
 
-- **Kaggle Notebooks**（免费 GPU）
-- **Paperspace Gradient**（免费/付费）
-- **AWS SageMaker Studio Lab**（免费）
-- **阿里云 PAI-DSW**（付费）
+- 整体定位：CPU-first
+- 大多数 notebook：可在 CPU 环境下完成学习和 correctness 验证
+- 已确认 GPU 题：`21_Gradient_Checkpointing`
+- 推荐策略：统一 Python 环境，GPU 用于后段实验和真实性能验证
+- 已验证：当前本机 `llm_algo` 环境下，Chapter 2 答案区全量通过
 
-### 工作流程
+### Chapter 3
 
-1. 在平台上创建 Notebook
-2. 从 GitHub 克隆仓库
-3. 打开 .ipynb 文件编辑
-4. 运行测试
+- 整体定位：GPU-required
+- 完整体验：Linux + NVIDIA GPU + CUDA / Triton
+- 代码审计结果：本章直接面向 GPU 内核、显存和通信行为
+- 推荐策略：把 Linux 作为默认参考环境，其他系统只作为补充
+- 已验证：当前本机 `llm_algo` 环境下，Chapter 3 答案区全量通过
 
-### 优点
+### 本地平台备注
 
-- ✅ 更强大的 GPU（部分平台）
-- ✅ 更长的运行时间
-- ✅ 企业级环境
-
-### 缺点
-
-- ❌ 部分平台需要付费
-- ❌ 配置相对复杂
+- **Linux 22.04**：已验证，是当前最稳的本地参考环境
+- **WSL2**：理论上可作为过渡方案，但尚未作为主验证基线
+- **macOS**：可能接近可用，但尚未完成逐项验证，不应默认承诺 Chapter 3 完整体验
 
 ---
 
-## 🔧 硬件要求说明
+## 怎么选
 
-| 你的环境 | 可学内容 | 限制说明 |
-| ---- | ---- | ---- |
-| **无 GPU (CPU only)** | • Chapter 0: 全部<br>• Chapter 1: 全部<br>• Chapter 2: 00-20 题<br>• Chapter 3: 无法学习 | 可完成约 70% 的内容，覆盖算法工程师核心考点<br>⚠️ Chapter 2 的 21-25 题（显存优化、分布式）无法测试实际效果 |
-| **有 NVIDIA GPU** | • Chapter 0-3: 全部 | 100% 完整学习体验，额外覆盖：<br>• 显存优化实战（Ch2: 21-25）<br>• GPU 算子开发（Ch3: 全部） |
+### 只想快速开始
+- 用在线 Notebook
+- 先学 Chapter 0 / 1
 
-### GPU 需求详细说明
+### 想系统学 Chapter 2
+- 用本地基础环境
+- 保持同一套 Python 依赖
+- 需要真实显存或性能再切 GPU
 
-- **Chapter 0（前置知识）**：全部可在 CPU 运行，Profiling 工具在 GPU 上效果更好但非必需
-- **Chapter 1（理论）**：纯理论讨论，无需 GPU
-- **Chapter 2（算法实战）**：大部分可在 CPU 运行，但以下题目强烈建议使用 GPU：
-  - 21 题（Gradient Checkpointing）：需要测量真实 CUDA 显存优化效果
-  - 22-25 题（量化、分布式训练）：性能测试需要 GPU 环境
-- **Chapter 3（CUDA/Triton）**：必须使用 NVIDIA GPU（Compute Capability 7.0+）
+### 想完整学 Chapter 3
+- 用 Linux + NVIDIA GPU
+- 先装好 CUDA / Triton / 编译工具链
 
-### 推荐配置
-
-- **学习算法原理**：CPU 即可完成 70% 的内容
-- **完整学习体验**：建议使用 NVIDIA GPU（GTX 1060+ 或云端 GPU）
-- **GPU 环境配置**：查看 [Chapter 3 环境配置指南](./03_CUDA_and_Triton_Kernels/intro.md)
+### 想统一环境
+- 优先 CNB / Docker / 云端 GPU
+- 适合团队、课程和长期复现
 
 ---
 
-## 📝 Jupyter Notebook 使用技巧
+## 环境文件怎么分
 
-### 基础操作
-
-**执行单元格 (Cell)**
-- **方式一：** 点击单元格，然后点击顶部工具栏的 ▶️ "Run" 按钮
-- **方式二：** 选中单元格后按 `Shift + Enter`（执行并跳到下一个单元格）
-- **方式三：** 按 `Ctrl + Enter`（执行但停留在当前单元格）
-
-**执行所有单元格**
-- 点击顶部菜单栏：`Run` → `Run All Cells`
-- 或点击工具栏的 ⏩ "Run All" 按钮
-
-### 推荐的刷题流程
-
-1. 先执行第一个 cell（导入库）
-2. 按顺序阅读每个 Part 的说明
-3. 在 TODO 处填写你的代码
-4. 执行测试 cell 验证答案
-
-### 常见问题
-
-**Q: 为什么会出现 `name 'xxx' is not defined` 错误？**
-- **原因：** 没有按顺序执行前面的 cell，导致变量或函数未定义
-- **解决：** 点击 `Run` → `Run All Cells` 重新执行整个 notebook
-
-**Q: 如何重置 notebook 状态？**
-- 点击 `Kernel` → `Restart Kernel and Clear All Outputs`
-- 然后重新按顺序执行所有 cell
-
-**Q: 修改代码后测试仍然失败？**
-- 确保修改后重新执行了该 cell（单元格左侧会显示执行序号）
-- 如果修改了函数定义，需要重新执行定义该函数的 cell
-
-### 快捷键速查
-
-| 操作 | 快捷键 |
-|------|--------|
-| 执行当前 cell 并跳到下一个 | `Shift + Enter` |
-| 执行当前 cell 不跳转 | `Ctrl + Enter` |
-| 在上方插入新 cell | `A` (命令模式) |
-| 在下方插入新 cell | `B` (命令模式) |
-| 删除当前 cell | `D + D` (命令模式) |
-| 切换到命令模式 | `Esc` |
-| 切换到编辑模式 | `Enter` |
-| 保存 notebook | `Ctrl + S` |
+- `environment.yml`：本地主入口
+- `requirements/base.txt`：基础依赖
+- `requirements/dev.txt`：开发和测试依赖
+- `requirements/gpu.txt`：Chapter 3 / Triton / GPU 扩展依赖
+- `cnb/README.md`：未来云端统一环境说明
+- `cnb/environment.yml`：未来云端环境骨架
 
 ---
 
-## 🎯 选择建议总结
+## 相关阅读
 
-| 你的情况 | 推荐方式 | 原因 |
-|---------|---------|------|
-| 零基础 + 无本地环境 | **方式 1** | 零配置，免费 GPU |
-| 有 Python 基础 + 无 GPU | **方式 2** | 本地开发体验更好 |
-| 有本地 NVIDIA GPU | **方式 2** | 充分利用本地资源 |
-| 需要批量测试/CI | **方式 3** | 脚本化测试 |
-| 企业/研究用途 | **方式 4** | 更强算力 |
-
-开始你的学习之旅吧！🚀
+- [维护与发布手册](./maintenance.md)
+- [Chapter 2 导学](./02_PyTorch_Algorithms/intro.md)
+- [Chapter 3 导学](./03_CUDA_and_Triton_Kernels/intro.md)
