@@ -41,14 +41,17 @@ jobs:
         working-directory: ./docs
         run: npm run docs:build
 
+      - name: Normalize artifact name
+        run: echo "ARTIFACT_NAME=vitepress-preview-${GITHUB_REF_NAME//\//-}" >> "$GITHUB_ENV"
+
       - name: Upload preview artifact
         uses: actions/upload-artifact@v4
         with:
-          name: vitepress-preview-${{ replace(github.ref_name, '/', '-') }}
+          name: ${{ env.ARTIFACT_NAME }}
           path: docs/.vitepress/dist
           retention-days: 7
 
       - name: Preview summary
         run: |
           echo "Preview build finished for branch: ${{ github.ref_name }}"
-          echo "Download the artifact named: vitepress-preview-${{ replace(github.ref_name, '/', '-') }}"
+          echo "Download the artifact named: $ARTIFACT_NAME"
