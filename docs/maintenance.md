@@ -38,6 +38,40 @@
 - `cnb/README.md`
 - `cnb/environment.yml`
 
+## 源文件与生成物
+
+仓库里的章节内容遵循“源文件在根目录，网页产物在 `docs/`”的原则。
+
+### 源文件
+
+- 根目录下的 `00_Prerequisites/`
+- 根目录下的 `01_Hardware_Math_and_Systems/`
+- 根目录下的 `02_PyTorch_Algorithms/`
+- 根目录下的 `03_CUDA_and_Triton_Kernels/`
+- 根目录下的章节 `intro.md`
+- 根目录下的章节练习 `*.ipynb`
+- 根目录下的章节理论 `*.md`
+
+### 生成物
+
+- `docs/00_Prerequisites/`
+- `docs/01_Hardware_Math_and_Systems/`
+- `docs/02_PyTorch_Algorithms/`
+- `docs/03_CUDA_and_Triton_Kernels/`
+
+这些目录中的章节页面通常由 `convert_notebook.py` 从根目录源文件同步生成。维护时应优先修改根目录源文件，再重新生成 `docs/` 页面。
+
+### 手工维护文件
+
+以下文件不属于自动生成物，应该直接手工维护：
+
+- `README.md`
+- `docs/index.md`
+- `docs/guide.md`
+- `docs/contributing.md`
+- `docs/maintenance.md`
+- `docs/.vitepress/config.mts`
+
 ## 维护目标
 
 - 保持章节内容、站点导航、Notebook 入口和测试脚本同步
