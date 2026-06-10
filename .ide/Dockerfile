@@ -1,8 +1,5 @@
 FROM continuumio/miniconda3:latest
 
-ENV DEBIAN_FRONTEND=noninteractive
-ENV PYTHONUNBUFFERED=1
-
 WORKDIR /workspace
 
 RUN apt-get update \
@@ -15,15 +12,34 @@ RUN apt-get update \
         wget \
     && rm -rf /var/lib/apt/lists/*
 
-COPY environment.yml /tmp/environment.yml
-
-RUN conda env create -f /tmp/environment.yml \
+RUN conda create -y -n llm_algo_cnb_dev \
+        python=3.10 \
+        pip \
+        jupyterlab \
+        ipywidgets \
+        nbformat \
+        nbconvert \
+        jupyterlab-mathjax3 \
+        matplotlib \
+        pandas \
+        -c conda-forge \
+        -c pytorch \
     && conda clean -afy
 
-SHELL ["bash", "-lc"]
+RUN /opt/conda/envs/llm_algo_cnb_dev/bin/pip install --no-cache-dir \
+        torch \
+        einops \
+        transformers \
+        triton \
+        termcolor \
+        pytest
 
-RUN source /opt/conda/etc/profile.d/conda.sh \
-    && conda activate llm_algo_cnb \
-    && python -m pip install --upgrade pip
+SHELL ["/bin/bash", "-lc"]
 
-ENV PATH="/opt/conda/envs/llm_algo_cnb/bin:${PATH}"
+RUN echo "source /opt/conda/etc/profile.d/conda.sh && conda activate llm_algo_cnb_dev" >> /etc/bash.bashrc
+
+ENV PATH=/opt/conda/envs/llm_algo_cnb_dev/bin:/opt/conda/bin:$PATH
+ENV CONDA_DEFAULT_ENV=llm_algo_cnb_dev
+ENV CONDA_PREFIX=/opt/conda/envs/llm_algo_cnb_dev
+
+CMD ["bash"]
