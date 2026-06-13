@@ -8,7 +8,7 @@
 
 > **相关阅读**:  
 > 请前往实战篇进行相关代码练习：  
-> [`../03_CUDA_and_Triton_Kernels/15_PyTorch_CUDA_Streams_and_Transfer.md`](../03_CUDA_and_Triton_Kernels/15_PyTorch_CUDA_Streams_and_Transfer.md)  
+> [`../docs/03_CUDA_and_Triton_Kernels/15_PyTorch_CUDA_Streams_and_Transfer.md`](../docs/03_CUDA_and_Triton_Kernels/15_PyTorch_CUDA_Streams_and_Transfer.md)  
 
 ---
 
