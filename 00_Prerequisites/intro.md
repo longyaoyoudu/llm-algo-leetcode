@@ -85,8 +85,8 @@
 
 | 题号 | 题目 | 难度 | 核心知识点 |
 |:---|:---|:---|:---|
-| 00 | [Python Essentials for LLM](./00_Python_Essentials_for_LLM.ipynb) | Easy | 列表推导、字典、函数、装饰器、类 |
-| 01 | [NumPy and Einsum](./01_NumPy_and_Einsum.ipynb) | Easy | 数组操作、广播、einsum 符号 |
+| 00 | [Python Essentials for LLM](../docs/00_Prerequisites/00_Python_Essentials_for_LLM.md) | Easy | 列表推导、字典、函数、装饰器、类 |
+| 01 | [NumPy and Einsum](../docs/00_Prerequisites/01_NumPy_and_Einsum.md) | Easy | 数组操作、广播、einsum 符号 |
 
 ### 📖 详细题目指南
 
@@ -145,10 +145,10 @@
 
 | 题号 | 题目 | 难度 | 核心知识点 |
 |:---|:---|:---|:---|
-| 02 | [PyTorch Tensor Fundamentals](./02_PyTorch_Tensor_Fundamentals.ipynb) | Easy | Tensor 创建、操作、设备转移、数据类型 |
-| 03 | [PyTorch Autograd and Backward](./03_PyTorch_Autograd_and_Backward.ipynb) | Medium | 自动求导、梯度计算、反向传播 |
-| 04 | [PyTorch nn.Module Basics](./04_PyTorch_nn_Module_Basics.ipynb) | Medium | 模块定义、前向传播、参数管理 |
-| 05 | [PyTorch Optimizers and Loss](./05_PyTorch_Optimizers_and_Loss.ipynb) | Medium | 损失函数、优化器、学习率 |
+| 02 | [PyTorch Tensor Fundamentals](../docs/00_Prerequisites/02_PyTorch_Tensor_Fundamentals.md) | Easy | Tensor 创建、操作、设备转移、数据类型 |
+| 03 | [PyTorch Autograd and Backward](../docs/00_Prerequisites/03_PyTorch_Autograd_and_Backward.md) | Medium | 自动求导、梯度计算、反向传播 |
+| 04 | [PyTorch nn.Module Basics](../docs/00_Prerequisites/04_PyTorch_nn_Module_Basics.md) | Medium | 模块定义、前向传播、参数管理 |
+| 05 | [PyTorch Optimizers and Loss](../docs/00_Prerequisites/05_PyTorch_Optimizers_and_Loss.md) | Medium | 损失函数、优化器、学习率 |
 
 ### 核心概念解析
 
@@ -213,10 +213,10 @@ class MyFunction(torch.autograd.Function):
 
 | 题号 | 题目 | 难度 | 核心知识点 |
 |:---|:---|:---|:---|
-| 06 | [Simple Neural Network Training](./06_Simple_Neural_Network_Training.ipynb) | Medium | 训练循环、验证、保存模型 |
-| 07 | [Activation Functions](./07_Activation_Functions.ipynb) | Easy | ReLU、GELU、SiLU 的实现与对比 |
-| 08 | [Normalization Techniques](./08_Normalization_Techniques.ipynb) | Medium | BatchNorm、LayerNorm 的原理与实现 |
-| 09 | [Attention Mechanism Intro](./09_Attention_Mechanism_Intro.ipynb) | Medium | Scaled Dot-Product Attention 基础 |
+| 06 | [Simple Neural Network Training](../docs/00_Prerequisites/06_Simple_Neural_Network_Training.md) | Medium | 训练循环、验证、保存模型 |
+| 07 | [Activation Functions](../docs/00_Prerequisites/07_Activation_Functions.md) | Easy | ReLU、GELU、SiLU 的实现与对比 |
+| 08 | [Normalization Techniques](../docs/00_Prerequisites/08_Normalization_Techniques.md) | Medium | BatchNorm、LayerNorm 的原理与实现 |
+| 09 | [Attention Mechanism Intro](../docs/00_Prerequisites/09_Attention_Mechanism_Intro.md) | Medium | Scaled Dot-Product Attention 基础 |
 
 ### 核心概念解析
 
@@ -308,10 +308,10 @@ Attention(Q, K, V) = softmax(QK^T / √d_k) V
 
 | 题号 | 题目 | 难度 | 核心知识点 |
 |:---|:---|:---|:---|
-| 10 | [PyTorch Profiling Basics](./10_PyTorch_Profiling_Basics.ipynb) | Medium | torch.profiler、性能分析、瓶颈定位 |
-| 11 | [Memory Profiling and Optimization](./11_Memory_Profiling_and_Optimization.ipynb) | Medium | 内存分析、显存优化、梯度累积 |
-| 12 | [Debugging Techniques](./12_Debugging_Techniques.ipynb) | Medium | 梯度检查、NaN 调试、断点调试 |
-| 13 | [Jupyter and Git Basics](./13_Jupyter_and_Git_Basics.ipynb) | Easy | Notebook 使用、版本控制基础 |
+| 10 | [PyTorch Profiling Basics](../docs/00_Prerequisites/10_PyTorch_Profiling_Basics.md) | Medium | torch.profiler、性能分析、瓶颈定位 |
+| 11 | [Memory Profiling and Optimization](../docs/00_Prerequisites/11_Memory_Profiling_and_Optimization.md) | Medium | 内存分析、显存优化、梯度累积 |
+| 12 | [Debugging Techniques](../docs/00_Prerequisites/12_Debugging_Techniques.md) | Medium | 梯度检查、NaN 调试、断点调试 |
+| 13 | [Jupyter and Git Basics](../docs/00_Prerequisites/13_Jupyter_and_Git_Basics.md) | Easy | Notebook 使用、版本控制基础 |
 
 ### 核心概念解析
 

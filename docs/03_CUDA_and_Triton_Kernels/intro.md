@@ -226,11 +226,11 @@ def triton_add(x: torch.Tensor, y: torch.Tensor):
 
 | 题号 | 题目 | 难度 | 核心知识点 |
 |:---|:---|:---|:---|
-| 01 | [Triton Vector Addition](./01_Triton_Vector_Addition.ipynb) | Medium | Block 编程、mask、grid |
-| 02 | [Triton Fused SwiGLU](./02_Triton_Fused_SwiGLU.ipynb) | Medium | Kernel 融合、访存优化 |
-| 03 | [Triton Fused RMSNorm](./03_Triton_Fused_RMSNorm.ipynb) | Medium | 归约操作、数值稳定性 |
-| 04 | [Triton GEMM Tutorial](./04_Triton_GEMM_Tutorial.ipynb) | Hard | 矩阵乘法、Tiling |
-| 05 | [Triton Autotune and Profiling](./05_Triton_Autotune_and_Profiling.ipynb) | Medium | 性能调优、Benchmark |
+| 01 | [Triton Vector Addition](./01_Triton_Vector_Addition.md) | Medium | Block 编程、mask、grid |
+| 02 | [Triton Fused SwiGLU](./02_Triton_Fused_SwiGLU.md) | Medium | Kernel 融合、访存优化 |
+| 03 | [Triton Fused RMSNorm](./03_Triton_Fused_RMSNorm.md) | Medium | 归约操作、数值稳定性 |
+| 04 | [Triton GEMM Tutorial](./04_Triton_GEMM_Tutorial.md) | Hard | 矩阵乘法、Tiling |
+| 05 | [Triton Autotune and Profiling](./05_Triton_Autotune_and_Profiling.md) | Medium | 性能调优、Benchmark |
 
 ### 📖 详细题目指南
 
@@ -336,12 +336,12 @@ def triton_add(x: torch.Tensor, y: torch.Tensor):
 
 | 题号 | 题目 | 难度 | 核心知识点 |
 |:---|:---|:---|:---|
-| 06 | [Triton Fused Softmax](./06_Triton_Fused_Softmax.ipynb) | Hard | Online Softmax、数值稳定性 |
-| 07 | [Triton Fused RoPE](./07_Triton_Fused_RoPE.ipynb) | Medium | 复数运算、位置编码 |
-| 08 | [Triton Flash Attention](./08_Triton_Flash_Attention.ipynb) | Very Hard | Tiling、Online Softmax、SRAM 优化 |
-| 09 | [Triton Fused LoRA](./09_Triton_Fused_LoRA.ipynb) | Hard | 低秩分解、融合优化 |
-| 10 | [Triton KV Cache and PagedAttention](./10_Triton_KV_Cache_and_PagedAttention.ipynb) | Hard | KV Cache、内存管理 |
-| 11 | [Triton Quantization Support](./11_Triton_Quantization_Support.ipynb) | Hard | INT8 量化、反量化 |
+| 06 | [Triton Fused Softmax](./06_Triton_Fused_Softmax.md) | Hard | Online Softmax、数值稳定性 |
+| 07 | [Triton Fused RoPE](./07_Triton_Fused_RoPE.md) | Medium | 复数运算、位置编码 |
+| 08 | [Triton Flash Attention](./08_Triton_Flash_Attention.md) | Very Hard | Tiling、Online Softmax、SRAM 优化 |
+| 09 | [Triton Fused LoRA](./09_Triton_Fused_LoRA.md) | Hard | 低秩分解、融合优化 |
+| 10 | [Triton KV Cache and PagedAttention](./10_Triton_KV_Cache_and_PagedAttention.md) | Hard | KV Cache、内存管理 |
+| 11 | [Triton Quantization Support](./11_Triton_Quantization_Support.md) | Hard | INT8 量化、反量化 |
 
 ### 核心算子解析
 
@@ -369,8 +369,8 @@ def triton_add(x: torch.Tensor, y: torch.Tensor):
 
 | 题号 | 题目 | 难度 | 核心知识点 |
 |:---|:---|:---|:---|
-| 12 | [Triton Memory Model and Debug](./12_Triton_Memory_Model_and_Debug.ipynb) | Medium | 内存层次、调试技巧 |
-| 13 | [Triton Llama3 Block Project](./13_Triton_Llama3_Block_Project.ipynb) | Hard | 综合项目、端到端优化 |
+| 12 | [Triton Memory Model and Debug](./12_Triton_Memory_Model_and_Debug.md) | Medium | 内存层次、调试技巧 |
+| 13 | [Triton Llama3 Block Project](./13_Triton_Llama3_Block_Project.md) | Hard | 综合项目、端到端优化 |
 
 ---
 
@@ -386,12 +386,12 @@ def triton_add(x: torch.Tensor, y: torch.Tensor):
 
 | 题号 | 题目 | 难度 | 核心知识点 |
 |:---|:---|:---|:---|
-| 15 | [PyTorch CUDA Streams and Transfer](./15_PyTorch_CUDA_Streams_and_Transfer.ipynb) | Medium | CUDA Stream、异步传输 |
-| 16 | [Distributed Communication Primitives](./16_Distributed_Communication_Primitives.ipynb) | Hard | All-Reduce、All-Gather、NCCL |
-| 17 | [DeepSpeed Zero Config](./17_DeepSpeed_Zero_Config.ipynb) | Medium | ZeRO 配置、分布式训练 |
-| 18 | [CUDA Custom Kernel Intro](./18_CUDA_Custom_Kernel_Intro.ipynb) | Hard | CUDA C++、线程层次 |
-| 19 | [CUDA Shared Memory Optimization](./19_CUDA_Shared_Memory_Optimization.ipynb) | Very Hard | Shared Memory、Bank Conflict |
-| 20 | [CUDA vs Triton vs PyTorch](./20_CUDA_vs_Triton_vs_PyTorch.ipynb) | Medium | 技术选型、性能对比 |
+| 15 | [PyTorch CUDA Streams and Transfer](./15_PyTorch_CUDA_Streams_and_Transfer.md) | Medium | CUDA Stream、异步传输 |
+| 16 | [Distributed Communication Primitives](./16_Distributed_Communication_Primitives.md) | Hard | All-Reduce、All-Gather、NCCL |
+| 17 | [DeepSpeed Zero Config](./17_DeepSpeed_Zero_Config.md) | Medium | ZeRO 配置、分布式训练 |
+| 18 | [CUDA Custom Kernel Intro](./18_CUDA_Custom_Kernel_Intro.md) | Hard | CUDA C++、线程层次 |
+| 19 | [CUDA Shared Memory Optimization](./19_CUDA_Shared_Memory_Optimization.md) | Very Hard | Shared Memory、Bank Conflict |
+| 20 | [CUDA vs Triton vs PyTorch](./20_CUDA_vs_Triton_vs_PyTorch.md) | Medium | 技术选型、性能对比 |
 
 ---
 

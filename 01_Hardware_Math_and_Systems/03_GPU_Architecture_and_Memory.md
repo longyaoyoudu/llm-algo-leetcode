@@ -9,8 +9,8 @@
 
 > **相关阅读**:  
 > 请前往实战篇进行相关代码练习：  
-> [`../03_CUDA_and_Triton_Kernels/04_Triton_GEMM_Tutorial.md`](../03_CUDA_and_Triton_Kernels/04_Triton_GEMM_Tutorial.md)  
-> [`../03_CUDA_and_Triton_Kernels/08_Triton_Flash_Attention.md`](../03_CUDA_and_Triton_Kernels/08_Triton_Flash_Attention.md)  
+> [`../docs/03_CUDA_and_Triton_Kernels/04_Triton_GEMM_Tutorial.md`](../docs/03_CUDA_and_Triton_Kernels/04_Triton_GEMM_Tutorial.md)  
+> [`../docs/03_CUDA_and_Triton_Kernels/08_Triton_Flash_Attention.md`](../docs/03_CUDA_and_Triton_Kernels/08_Triton_Flash_Attention.md)  
 
 ---
 

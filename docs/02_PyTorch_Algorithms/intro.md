@@ -139,11 +139,11 @@ def forward(x):
 
 | 题号 | 题目 | 难度 | 核心知识点 |
 |:---|:---|:---|:---|
-| 00 | [PyTorch Warmup](./00_PyTorch_Warmup.ipynb) | Easy | Tensor 操作、自动求导 |
-| 01 | [RMSNorm Tutorial](./01_RMSNorm_Tutorial.ipynb) | Easy | 归一化、广播机制 |
-| 02 | [SwiGLU Activation](./02_SwiGLU_Activation.ipynb) | Easy | 激活函数、门控机制 |
-| 03 | [RoPE Tutorial](./03_RoPE_Tutorial.ipynb) | Medium | 位置编码、旋转矩阵 |
-| 04 | [Attention MHA/GQA](./04_Attention_MHA_GQA.ipynb) | Medium | 注意力机制、KV 共享 |
+| 00 | [PyTorch Warmup](./00_PyTorch_Warmup.md) | Easy | Tensor 操作、自动求导 |
+| 01 | [RMSNorm Tutorial](./01_RMSNorm_Tutorial.md) | Easy | 归一化、广播机制 |
+| 02 | [SwiGLU Activation](./02_SwiGLU_Activation.md) | Easy | 激活函数、门控机制 |
+| 03 | [RoPE Tutorial](./03_RoPE_Tutorial.md) | Medium | 位置编码、旋转矩阵 |
+| 04 | [Attention MHA/GQA](./04_Attention_MHA_GQA.md) | Medium | 注意力机制、KV 共享 |
 
 ### 🗺️ 推荐学习顺序
 

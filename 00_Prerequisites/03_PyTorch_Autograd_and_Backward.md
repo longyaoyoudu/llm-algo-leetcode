@@ -681,4 +681,4 @@ def clip_gradients(model, max_norm=1.0):
 - ✅ 自定义 autograd.Function
 - ✅ 梯度检查和调试
 
-**下一步：** 学习 [04. PyTorch nn.Module Basics](./04_PyTorch_nn_Module_Basics.md)，掌握模块定义和参数管理。
+**下一步：** 学习 [04. PyTorch nn.Module Basics](../docs/00_Prerequisites/04_PyTorch_nn_Module_Basics.md)，掌握模块定义和参数管理。
