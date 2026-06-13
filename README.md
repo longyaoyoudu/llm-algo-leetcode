@@ -3,6 +3,8 @@
 > [!WARNING]
 > 🧪 Beta公测版本提示：教程主体代码与算子已基本构建完成，正在持续优化文档细节与补充注释。欢迎大家提交 Issue 反馈问题或贡献 PR！
 
+[最新更新点]：修复 dead link，并为未完成页面补充占位页，避免学习入口出现 404。
+
 [中文版 (Chinese)](#中文版) | [English Version](#english-version)
 
 ---
