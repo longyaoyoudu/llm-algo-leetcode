@@ -1,5 +1,7 @@
 <h1 align="center"> 大模型算法实战教程 / LLM Algorithm Practice Lab </h1>
 
+本项目原名 `LLM-Algo-LeetCode`，现统一更名为“大模型算法实战教程 / LLM Algorithm Practice Lab”。
+
 > [!WARNING]
 > 🧪 Beta公测版本提示：教程主体代码与算子已基本构建完成，正在持续优化文档细节与补充注释。欢迎大家提交 Issue 反馈问题或贡献 PR！
 
@@ -15,39 +17,38 @@
 
 ## 🎯 项目简介
 
-这是一个面向大模型入门到进阶的算法实战教程，覆盖 Python、PyTorch、Transformer、推理优化、显存管理与 CUDA/Triton 实战。它不只是讲概念，而是把每个知识点做成可运行、可验证、可回顾的练习，帮助你从“会看”走到“会写、会调、会优化”。
+这是一个面向大模型入门到进阶的算法实战教程，聚焦 Python、PyTorch、Transformer、推理优化、显存管理与 CUDA/Triton 实战。我们把每个知识点做成可运行、可验证、可回顾的 Jupyter Notebook 练习，帮助你从“会看”走到“会写、会调、会优化”。
 
-本项目严格限定于纯粹的大语言模型（LLM）领域，不包含 Diffusion 或多模态。我们将现代大模型架构中的底层算法与系统设计封装为独立的 Jupyter Notebook 填空题，并配备本地测试用例，提供可反复练习和回顾的学习路径。
+本项目仅限于纯粹的大语言模型（LLM）领域，不包含 Diffusion 或多模态，并配备本地测试用例，提供可反复练习和回顾的学习路径。
 
 ### ✨ 项目特点
 
 1. **高度垂直**：专注 Transformer、MoE、量化、推理加速与显存优化。
-2. **工程导向**：使用 PyTorch、Triton 或原生 CUDA C++ 实现核心算子和系统逻辑。
-3. **测试驱动**：每道题都配套工业对齐测试和性能验证。
-4. **由浅入深**：覆盖理论基础、模型组装与训练、底层计算加速三个阶段。
+2. **工程导向**：使用 PyTorch、Triton 或 CUDA C++ 实现核心算子和系统逻辑。
+3. **测试驱动**：每道题都配套本地测试和性能验证。
 
 ### 👥 项目受众
 
 - **求职面试者**：巩固 LLM 算法工程师、AI 架构师、算子开发工程师的高频考点。
 - **AI 研发人员**：从代码底层理解分布式通信、显存优化与 Triton/CUDA 算子。
-- **前置要求**：具备 Python 和深度学习基础，熟悉 PyTorch；高阶章节需一定 C++/CUDA 基础。
+- **前置要求**：具备 Python 和深度学习基础，熟悉 PyTorch；高阶内容需要一定 C++/CUDA 基础。
 
 ## 🆕 更新时间线
 
 - **2026-06-13**：[最新更新点]：修复 dead link，并为未完成页面补充占位页，避免学习入口出现 404。
 - **2026-04-21**：更新 Colab 徽章链接，统一指向官方 `datawhalechina` 仓库。
-- **2026-04-20**：上线站点首页与章节导学；新增 Chapter 0 前置知识与 Chapter 1 练习内容，完善在线阅读入口与学习路径。
-- **2026-04-18 ~ 2026-04-19**：集中重构 Chapter 2 / 3 内容，优化 Notebook、答案区与算子实现说明。
+- **2026-04-20**：上线站点首页与部分导学；新增第零部分前置知识与第一部分练习内容，完善在线阅读入口与学习路径。
+- **2026-04-18 ~ 2026-04-19**：集中重构第二部分 / 第三部分内容，优化 Notebook、答案区与算子实现说明。
 - **2026-04-02**：完成教程核心 Notebook、文档与测试脚本的初始搭建。
 
-## 📚 章节总览
+## 📚 部分总览
 
-| 模块 | 简介 | 状态 | 入口 |
+| 部分 | 简介 | 组别 | 状态 |
 | ---- | ---- | ---- | ---- |
-| Chapter 0 | 前置知识与环境准备。 | 🚧 部分完成 | [导学](./00_Prerequisites/intro.md) |
-| Chapter 1 | 硬件、算力推导与系统级理论。 | 🚧 理论完成 | [导学](./01_Hardware_Math_and_Systems/intro.md) |
-| Chapter 2 | PyTorch 算法实战。 | ✅ 完成 | [导学](./02_PyTorch_Algorithms/intro.md) |
-| Chapter 3 | CUDA C++ 与 Triton 算子开发。 | ✅ 完成 | [导学](./03_CUDA_and_Triton_Kernels/intro.md) |
+| 第零部分 | 前置知识与环境准备。| [`0A Python 基础`](./00_Prerequisites/0A.md) / [`0B PyTorch 基础`](./00_Prerequisites/0B.md) / [`0C 深度学习基础`](./00_Prerequisites/0C.md) / [`0D 工具与调试`](./00_Prerequisites/0D.md)  | 🚧 主线完成，待后续补充 |
+| 第一部分 | 硬件、算力推导与系统级理论。| [`1A 数值基础与算力估算`](./01_Hardware_Math_and_Systems/1A.md) / [`1B 单卡硬件与访存优化`](./01_Hardware_Math_and_Systems/1B.md) / [`1C 多卡通信与显存共享`](./01_Hardware_Math_and_Systems/1C.md) / [`1D 异构调度与算子编程`](./01_Hardware_Math_and_Systems/1D.md) / [`1E 编译优化与算力生态`](./01_Hardware_Math_and_Systems/1E.md) | 🚧 主体完成，扩展部分完成 |
+| 第二部分 | PyTorch 算法实战。| [`2.1 基础算子`](./docs/02_PyTorch_Algorithms/2_1.md) / [`2.2 模型架构`](./docs/02_PyTorch_Algorithms/2_2.md) / [`2.3 微调与训练技术`](./docs/02_PyTorch_Algorithms/2_3.md) / [`2.4 对齐技术`](./docs/02_PyTorch_Algorithms/2_4.md) / [`2.5 反向传播与显存优化`](./docs/02_PyTorch_Algorithms/2_5.md) / [`2.6 核心推理优化`](./docs/02_PyTorch_Algorithms/2_6.md) / [`2.7 高级推理优化`](./docs/02_PyTorch_Algorithms/2_7.md) / [`2.8 分布式与扩展`](./docs/02_PyTorch_Algorithms/2_8.md) | ✅ 基本完成，后续会扩展 |
+| 第三部分 | CUDA C++ 与 Triton 算子开发。 | [`3.1 Triton 基础`](./docs/03_CUDA_and_Triton_Kernels/3_1.md) / [`3.2 Triton 进阶`](./docs/03_CUDA_and_Triton_Kernels/3_2.md) / [`3.3 Triton 项目`](./docs/03_CUDA_and_Triton_Kernels/3_3.md) / [`3.4 CUDA 内核与显存优化`](./docs/03_CUDA_and_Triton_Kernels/3_4.md) / [`3.5 CUDA 系统扩展`](./docs/03_CUDA_and_Triton_Kernels/3_5.md) | ✅ 基本完成，后续会扩展 |
 
 ## 🚀 快速开始
 
@@ -124,6 +125,15 @@ This project is strictly limited to the Large Language Model (LLM) domain, exclu
 - **2026-04-18 ~ 2026-04-19**: Refactored Chapter 2 / 3 content, polishing notebooks, answer sections, and operator implementation notes.
 - **2026-04-02**: Completed the initial tutorial notebooks, docs, and test scripts.
 
+## Part Overview
+
+| Part | Groups | Summary | Status | Entry |
+| ---- | ---- | ------- | ---- | ---- |
+| Part 0 | [`0A Python 基础`](./00_Prerequisites/0A.md) / [`0B PyTorch 基础`](./00_Prerequisites/0B.md) / [`0C 深度学习基础`](./00_Prerequisites/0C.md) / [`0D 工具与调试`](./00_Prerequisites/0D.md) | Prerequisites and environment setup. | 🚧 Partial | [Guide](./00_Prerequisites/intro.md) |
+| Part 1 | [`1A 数值基础与算力估算`](./01_Hardware_Math_and_Systems/1A.md) / [`1B 单卡硬件与访存优化`](./01_Hardware_Math_and_Systems/1B.md) / [`1C 多卡通信与显存共享`](./01_Hardware_Math_and_Systems/1C.md) / [`1D 异构调度与算子编程`](./01_Hardware_Math_and_Systems/1D.md) / [`1E 编译优化与算力生态`](./01_Hardware_Math_and_Systems/1E.md) | Hardware, compute estimation, and system-level theory. | 🚧 Theory complete | [Guide](./01_Hardware_Math_and_Systems/intro.md) |
+| Part 2 | [`2.1 基础算子`](./docs/02_PyTorch_Algorithms/2_1.md) / [`2.2 模型架构`](./docs/02_PyTorch_Algorithms/2_2.md) / [`2.3 微调与训练技术`](./docs/02_PyTorch_Algorithms/2_3.md) / [`2.4 对齐技术`](./docs/02_PyTorch_Algorithms/2_4.md) / [`2.5 反向传播与显存优化`](./docs/02_PyTorch_Algorithms/2_5.md) / [`2.6 核心推理优化`](./docs/02_PyTorch_Algorithms/2_6.md) / [`2.7 高级推理优化`](./docs/02_PyTorch_Algorithms/2_7.md) / [`2.8 分布式与扩展`](./docs/02_PyTorch_Algorithms/2_8.md) | PyTorch algorithm practice. | ✅ Complete | [Guide](./02_PyTorch_Algorithms/intro.md) |
+| Part 3 | [`3.1 Triton 基础`](./docs/03_CUDA_and_Triton_Kernels/3_1.md) / [`3.2 Triton 进阶`](./docs/03_CUDA_and_Triton_Kernels/3_2.md) / [`3.3 Triton 项目`](./docs/03_CUDA_and_Triton_Kernels/3_3.md) / [`3.4 CUDA 内核与显存优化`](./docs/03_CUDA_and_Triton_Kernels/3_4.md) / [`3.5 CUDA 系统扩展`](./docs/03_CUDA_and_Triton_Kernels/3_5.md) | CUDA C++ and Triton kernel development. | ✅ Complete | [Guide](./03_CUDA_and_Triton_Kernels/intro.md) |
+
 ## Quick Start
 
 ### Option 1: Read Online
@@ -142,7 +152,7 @@ conda activate llm_algo
 jupyter lab
 ```
 
-For Chapter 3 or additional GPU/Triton dependencies, install:
+For Part 3 or additional GPU/Triton dependencies, install:
 
 ```bash
 pip install -r requirements/gpu.txt
