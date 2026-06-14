@@ -2,43 +2,22 @@
 
 **难度：** Medium | **标签：** `PyTorch`, `Profiling`, `性能优化` | **目标人群：** 所有学习者
 
-## 🎯 学习目标
+## 学习目标
 
-- 掌握 torch.profiler 的基本使用
+- 掌握 `torch.profiler` 的基本使用
 - 学会分析 CPU/GPU 时间分布
 - 理解性能瓶颈的定位方法
 - 学会使用 TensorBoard 可视化性能数据
 
----
-
-## 📚 前置知识
+## 前置知识
 
 - PyTorch Tensor 基础（02 题）
 - PyTorch nn.Module（04 题）
 - 神经网络训练循环（06 题）
 
----
+## 练习
 
-## 💡 核心概念
-
-### 什么是 Profiling？
-
-Profiling（性能分析）是测量程序执行时间和资源使用的过程，帮助我们：
-- 找出性能瓶颈
-- 优化代码执行效率
-- 理解硬件利用率
-
-### 为什么需要 Profiling？
-
-在深度学习中，性能问题通常来自：
-- **访存瓶颈**：频繁的 CPU-GPU 数据传输
-- **算子效率**：某些操作特别慢
-- **并行度不足**：GPU 利用率低
-- **不必要的同步**：CPU 等待 GPU
-
----
-
-## 📖 Part 1: torch.profiler 基础
+### Part 1: `torch.profiler` 基础
 
 ### 1.1 简单示例
 
@@ -87,7 +66,7 @@ if torch.cuda.is_available():
 
 ---
 
-## 📖 Part 2: 性能报告解读
+## Part 2: 性能报告解读
 
 ### 2.1 关键指标
 
@@ -126,7 +105,7 @@ print(prof.key_averages().table(
 
 ---
 
-## 📖 Part 3: 导出和可视化
+## Part 3: 导出和可视化
 
 ### 3.1 导出 Chrome Trace
 
@@ -161,7 +140,7 @@ with profile(
 
 ---
 
-## 📖 Part 4: 分析训练循环
+## Part 4: 分析训练循环
 
 ### 4.1 完整训练循环的 Profiling
 
@@ -234,7 +213,7 @@ with profile(
 
 ---
 
-## 📖 Part 5: 常见性能问题定位
+## Part 5: 常见性能问题定位
 
 ### 5.1 CPU-GPU 数据传输瓶颈
 

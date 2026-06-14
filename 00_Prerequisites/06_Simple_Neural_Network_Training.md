@@ -2,27 +2,23 @@
 
 **难度：** Medium | **标签：** `PyTorch`, `训练循环`, `深度学习` | **目标人群：** 所有学习者
 
-## 🎯 学习目标
+## 学习目标
 
 - 掌握完整的训练循环结构
 - 理解训练、验证、测试的区别
 - 学会模型保存和加载
 - 掌握早停（Early Stopping）技术
 
----
-
-## 📚 前置知识
+## 前置知识
 
 - PyTorch Tensor 基础（02 题）
 - PyTorch Autograd（03 题）
 - PyTorch nn.Module（04 题）
 - 损失函数和优化器（05 题）
 
----
+## 关键说明
 
-## 💡 核心概念
-
-### 训练循环的标准结构
+训练循环的核心结构如下：
 
 ```
 for epoch in range(num_epochs):
@@ -45,7 +41,7 @@ for epoch in range(num_epochs):
 
 ---
 
-## 📖 Part 1: 完整的训练循环
+## Part 1: 完整的训练循环
 
 ### 1.1 基础训练循环
 
@@ -466,9 +462,7 @@ writer.close()
 # 启动 TensorBoard: tensorboard --logdir=runs
 ```
 
----
-
-## 🎯 实战练习
+## 实战练习
 
 ### 练习 1: 实现完整的训练流程
 
@@ -549,9 +543,7 @@ if __name__ == '__main__':
 # 2. TensorBoard 日志记录
 ```
 
----
-
-## 📚 参考答案
+## 参考答案
 
 <details>
 <summary>点击查看完整训练流程答案</summary>

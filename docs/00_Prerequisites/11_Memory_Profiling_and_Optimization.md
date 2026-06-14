@@ -2,36 +2,30 @@
 
 **难度：** Medium | **标签：** `PyTorch`, `显存优化`, `性能优化` | **目标人群：** 所有学习者
 
-## 🎯 学习目标
+## 学习目标
 
 - 掌握显存分析工具的使用
 - 学会优化显存使用
 - 理解梯度累积的原理
 - 掌握混合精度训练
 
----
-
-## 📚 前置知识
+## 前置知识
 
 - PyTorch Tensor 基础（02 题）
 - PyTorch Autograd（03 题）
 - 神经网络训练循环（06 题）
 - PyTorch Profiling（10 题）
 
----
+## 关键说明
 
-## 💡 核心概念
+显存主要用于存储：
+- 模型参数
+- 梯度
+- 优化器状态
+- 激活值
+- 临时缓冲区
 
-### 什么是显存（VRAM）？
-
-显存（Video RAM）是 GPU 上的内存，用于存储：
-- **模型参数**：权重和偏置
-- **梯度**：反向传播计算的梯度
-- **优化器状态**：Adam 的动量和方差
-- **激活值**：前向传播的中间结果
-- **临时缓冲区**：计算过程中的临时数据
-
-### 显存不足的常见症状
+显存不足时，通常会看到类似下面的报错：
 
 ```python
 RuntimeError: CUDA out of memory. Tried to allocate 2.00 GiB
@@ -39,7 +33,7 @@ RuntimeError: CUDA out of memory. Tried to allocate 2.00 GiB
 
 ---
 
-## 📖 Part 1: 显存监控
+## Part 1: 显存监控
 
 ### 1.1 基础显存查询
 
@@ -453,9 +447,7 @@ for name, func in strategies.items():
     print(f"{name:<25} {memory:<15.2f} {time_ms:<15.2f}")
 ```
 
----
-
-## 🎯 实战练习
+## 实战练习
 
 ### 练习 1: 分析模型的显存占用
 
@@ -514,9 +506,7 @@ def train_with_leak(model, train_loader, optimizer, criterion):
     return losses
 ```
 
----
-
-## 📚 参考答案
+## 参考答案
 
 <details>
 <summary>点击查看练习 1 答案</summary>
@@ -658,4 +648,4 @@ def train_without_leak(model, train_loader, optimizer, criterion):
 | 混合精度 | 40-50% | 加速 2-3x | 现代 GPU |
 | 梯度检查点 | 50-80% | 慢 20-30% | 深层模型 |
 
-**下一步：** 完成 Chapter 0 的学习后，可以进入 [Chapter 1: 硬件、数学与系统](../01_Hardware_Math_and_Systems/intro.md)。
+**下一步：** 完成第零部分的学习后，可以进入 [第一部分：硬件、数学与系统](../01_Hardware_Math_and_Systems/intro.md)。

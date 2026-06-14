@@ -2,30 +2,19 @@
 
 **难度：** Easy | **标签：** `PyTorch`, `Tensor`, `基础操作` | **目标人群：** 所有学习者
 
-## 🎯 学习目标
+## 学习目标
 
 - 掌握 Tensor 的创建、操作、设备转移
 - 理解 view、reshape、permute 的区别
 - 学会 Tensor 的索引和切片
 - 理解内存连续性的概念
 
----
-
-## 📚 前置知识
+## 前置知识
 
 - Python 基础语法
 - NumPy 数组操作（推荐先完成 01 题）
 
----
-
-## 💡 核心概念
-
-### 什么是 Tensor？
-
-Tensor（张量）是 PyTorch 中的核心数据结构，类似于 NumPy 的 ndarray，但具有以下特点：
-- 可以在 GPU 上运行
-- 支持自动求导
-- 针对深度学习优化
+## 关键说明
 
 ### Tensor vs NumPy Array
 
@@ -38,7 +27,7 @@ Tensor（张量）是 PyTorch 中的核心数据结构，类似于 NumPy 的 nda
 
 ---
 
-## 📖 Part 1: Tensor 创建
+## Part 1: Tensor 创建
 
 ### 1.1 从数据创建
 
@@ -94,7 +83,7 @@ rand_like = torch.rand_like(x)
 
 ---
 
-## 📖 Part 2: Tensor 属性
+## Part 2: Tensor 属性
 
 ```python
 x = torch.randn(2, 3, 4)
@@ -121,7 +110,7 @@ print(x.requires_grad)  # False
 
 ---
 
-## 📖 Part 3: 形状变换
+## Part 3: 形状变换
 
 ### 3.1 view() - 快速但要求内存连续
 
@@ -135,7 +124,7 @@ x_flat = x.view(-1)  # torch.Size([24])
 x_reshaped = x.view(6, 4)  # torch.Size([6, 4])
 x_reshaped = x.view(2, -1)  # torch.Size([2, 12])，-1 自动推断
 
-# ⚠️ view() 要求内存连续，否则会报错
+# view() 要求内存连续，否则会报错
 x_t = x.transpose(0, 1)  # 转置后内存不连续
 # x_t.view(-1)  # 会报错！
 ```
@@ -207,7 +196,7 @@ print(x_unsqueezed.shape)  # torch.Size([2, 1, 3])
 
 ---
 
-## 📖 Part 4: 索引和切片
+## Part 4: 索引和切片
 
 ```python
 x = torch.randn(3, 4, 5)
@@ -236,7 +225,7 @@ x_masked = x.masked_fill(mask, 0)  # 将所有大于 0 的元素设为 0
 
 ---
 
-## 📖 Part 5: 设备转移（CPU ↔ GPU）
+## Part 5: 设备转移（CPU ↔ GPU）
 
 ```python
 # 创建 CPU Tensor
@@ -262,7 +251,7 @@ x = x.to(device)
 
 ---
 
-## 📖 Part 6: 数据类型转换
+## Part 6: 数据类型转换
 
 ```python
 x = torch.randn(2, 3)
@@ -285,7 +274,7 @@ x_half = x.to(torch.float16)  # 或 x.half()
 
 ---
 
-## 📖 Part 7: 内存连续性
+## Part 7: 内存连续性
 
 ```python
 x = torch.randn(2, 3, 4)
@@ -309,7 +298,7 @@ print(x_t_contiguous.is_contiguous())  # True
 
 ---
 
-## 📖 Part 8: Tensor 与 NumPy 互转
+## Part 8: Tensor 与 NumPy 互转
 
 ```python
 import numpy as np
@@ -324,7 +313,7 @@ arr = np.array([1, 2, 3])
 x = torch.from_numpy(arr)  # 共享内存
 print(type(x))  # <class 'torch.Tensor'>
 
-# ⚠️ 注意：共享内存意味着修改会相互影响
+# 注意：共享内存意味着修改会相互影响
 x = torch.randn(2, 3)
 x_np = x.numpy()
 x_np[0, 0] = 999

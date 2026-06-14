@@ -7,14 +7,12 @@
 > [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/datawhalechina/llm-algo-leetcode/blob/main/00_Prerequisites/00_Python_Essentials_for_LLM_Practice.ipynb)
 > [![Open In Studio](https://img.shields.io/badge/Open%20In-ModelScope-blueviolet?logo=alibabacloud)](https://modelscope.cn/my/mynotebook) *(国内推荐：魔搭社区免费实例)*
 
-本练习配套导学：[Chapter 0 导学](./intro.md)
-
-## 🎯 学习目标
+## 学习目标
 - 掌握列表推导、字典合并、频率统计
 - 学会用类封装简单模型信息
 - 为 Chapter 2 的 notebook 代码风格打底
 
-## 核心练习
+## 题目区
 - `generate_position_ids(seq_len)`
 - `merge_model_config(base_config, overrides)`
 - `count_token_frequency(tokens)`

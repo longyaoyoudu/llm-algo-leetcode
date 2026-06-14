@@ -2,42 +2,25 @@
 
 **难度：** Medium | **标签：** `PyTorch`, `Autograd`, `反向传播` | **目标人群：** 所有学习者
 
-## 🎯 学习目标
+## 学习目标
 
 - 理解自动求导的原理
 - 掌握梯度计算和反向传播
 - 学会自定义 autograd.Function
 - 理解梯度累积和梯度清零
 
----
-
-## 📚 前置知识
+## 前置知识
 
 - PyTorch Tensor 基础操作（02 题）
 - 微积分基础（导数、链式法则）
 
----
+## 关键说明
 
-## 💡 核心概念
-
-### 什么是自动求导？
-
-自动求导（Automatic Differentiation, Autograd）是深度学习框架的核心功能，它能够自动计算函数的梯度，无需手动推导和编写梯度计算代码。
-
-### 计算图（Computational Graph）
-
-PyTorch 使用动态计算图（Dynamic Computational Graph）来追踪操作：
-- **前向传播**：构建计算图，记录每个操作
-- **反向传播**：沿着计算图反向计算梯度
-
-```
-前向传播:  x → f(x) → y
-反向传播:  ∂L/∂x ← ∂L/∂y
-```
+Autograd 会自动记录前向计算，并在 `backward()` 时沿着计算图回传梯度。
 
 ---
 
-## 📖 Part 1: 基础自动求导
+## Part 1: 基础自动求导
 
 ### 1.1 简单示例
 
@@ -93,7 +76,7 @@ print(y.grad)  # tensor([6.])  因为 dz/dy = 2y = 6
 
 ---
 
-## 📖 Part 2: requires_grad 和 grad_fn
+## Part 2: `requires_grad` 和 `grad_fn`
 
 ### 2.1 requires_grad
 
@@ -142,7 +125,7 @@ print(y.grad)  # None（非叶子节点的梯度会被释放）
 
 ---
 
-## 📖 Part 3: 梯度累积和清零
+## Part 3: 梯度累积和清零
 
 ### 3.1 梯度累积
 
@@ -205,7 +188,7 @@ for epoch in range(10):
 
 ---
 
-## 📖 Part 4: 控制梯度计算
+## Part 4: 控制梯度计算
 
 ### 4.1 torch.no_grad() - 禁用梯度计算
 
@@ -681,4 +664,4 @@ def clip_gradients(model, max_norm=1.0):
 - ✅ 自定义 autograd.Function
 - ✅ 梯度检查和调试
 
-**下一步：** 学习 [04. PyTorch nn.Module Basics](../docs/00_Prerequisites/04_PyTorch_nn_Module_Basics.md)，掌握模块定义和参数管理。
+**下一步：** 学习 [04. PyTorch nn.Module Basics](./04_PyTorch_nn_Module_Basics.md)，掌握模块定义和参数管理。
