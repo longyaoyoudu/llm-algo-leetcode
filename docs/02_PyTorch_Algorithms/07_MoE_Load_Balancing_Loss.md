@@ -127,10 +127,10 @@ def test_aux_loss():
         print(f"极度不均衡的 Loss: {loss_bad.item():.4f}")
         print(f"绝对均匀的 Loss  : {loss_good.item():.4f}")
         
-        # 理论最小值：当完全均匀时，P_i = 1/(E*top_k), f_i = 1/E
-        # sum(f_i * P_i) = E * (1/E) * (1/(E*top_k)) = 1/(E*top_k)
-        # aux_loss = alpha * E * 1/(E*top_k) = alpha / top_k
-        expected_min = alpha / top_k  # 0.01 / 2 = 0.005
+        # 理论最小值：当完全均匀时，P_i = 1/E, f_i = 1/E
+        # sum(f_i * P_i) = E * (1/E) * (1/E) = 1/E
+        # aux_loss = alpha * E * 1/E = alpha
+        expected_min = alpha  # 0.01
         assert torch.allclose(loss_good, torch.tensor(expected_min), atol=1e-4), f"理论最小 Loss 计算错误！期望 {expected_min:.4f}，实际 {loss_good.item():.4f}"
         assert loss_bad > loss_good * 2, "惩罚项没有对不均衡分布产生足够大的 Loss！"
         
@@ -179,7 +179,7 @@ def compute_load_balancing_loss(
     # TODO 1: 计算 P_i（每个专家的平均路由概率得分）
     P_i = torch.zeros(num_experts, dtype=routing_weights.dtype, device=routing_weights.device)
     P_i.scatter_add_(0, selected_experts.flatten(), routing_weights.flatten())
-    P_i = P_i / (total_tokens * top_k)
+    P_i = P_i / total_tokens
     
     # TODO 2: 计算 f_i（每个专家实际分到的 Token 比例）
     expert_mask = F.one_hot(selected_experts, num_classes=num_experts)
@@ -201,10 +201,10 @@ def compute_load_balancing_loss(
   ```python
   P_i = torch.zeros(num_experts, dtype=routing_weights.dtype, device=routing_weights.device)
   P_i.scatter_add_(0, selected_experts.flatten(), routing_weights.flatten())
-  P_i = P_i / (total_tokens * top_k)
+  P_i = P_i / total_tokens
   ```
 - **核心逻辑**：使用 `scatter_add_` 将每个 token 对选中专家的权重累加到对应专家的位置。
-- **归一化**：除以总的选择次数 `(total_tokens * top_k)` 得到平均权重。
+- **归一化**：除以总 token 数 `total_tokens`，因为每个 token 的 top-k 权重已经归一化且总和为 1。
 - **物理含义**：$P_i$ 表示专家 $i$ 在所有 token 上的平均被选中概率。
 
 **2. TODO 2: 计算 f_i（Token 分配比例）**
@@ -224,12 +224,12 @@ def compute_load_balancing_loss(
 
 - **实现方式**：`aux_loss = alpha * num_experts * (f_i * P_i).sum()`
 - **数学公式**：$L_{aux} = \alpha \cdot E \sum_{i=1}^E f_i \cdot P_i$
-- **最小值分析**：根据均值不等式，当 $f_i = P_i = 1/E$ 时（完全均匀），损失最小。对于 Top-K 路由，理论最小值为 $\alpha / K$。
+- **最小值分析**：根据均值不等式，当 $f_i = P_i = 1/E$ 时（完全均匀），损失最小。对于已归一化的 Top-K 路由权重，理论最小值为 $\alpha$。
 - **优化目标**：优化器为了降低这个 Loss，会强制将 Token 均匀分配给所有专家，防止路由崩塌。
 
 **工程要点**
 
-- **Top-K 兼容性**：代码支持任意 K 值，通过 `(total_tokens * top_k)` 归一化确保比例计算正确。
+- **Top-K 兼容性**：代码支持任意 K 值，$f_i$ 按总选择次数归一化，$P_i$ 按总 token 数归一化以保持概率分布总和为 1。
 - **数值稳定性**：使用 `scatter_add_` 而非循环累加，提升计算效率和数值稳定性。
 - **超参数调优**：$\alpha$ 通常设为 0.01，过大会影响主任务性能，过小则无法有效平衡负载。
 - **与主损失结合**：在实际训练中，将 `aux_loss` 加到 CrossEntropy Loss 上：`total_loss = ce_loss + aux_loss`。
