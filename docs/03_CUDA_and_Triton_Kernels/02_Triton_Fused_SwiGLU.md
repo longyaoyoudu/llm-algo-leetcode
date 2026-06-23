@@ -46,6 +46,18 @@ SwiGLU 激活函数由两个线性层输出的非线性组合构成：$SwiGLU(x,
 
 
 ```python
+try:
+    import triton
+except ModuleNotFoundError:
+    try:
+        import google.colab  # type: ignore
+    except Exception:
+        raise
+    import subprocess, sys
+    print('Installing Triton for Part 3...')
+    subprocess.check_call([sys.executable, '-m', 'pip', 'install', '-q', 'triton'])
+    import triton
+
 import torch
 import triton
 import triton.language as tl

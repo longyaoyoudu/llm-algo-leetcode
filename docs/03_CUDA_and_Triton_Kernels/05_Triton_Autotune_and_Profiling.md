@@ -36,6 +36,18 @@
 
 
 ```python
+try:
+    import triton
+except ModuleNotFoundError:
+    try:
+        import google.colab  # type: ignore
+    except Exception:
+        raise
+    import subprocess, sys
+    print('Installing Triton for Part 3...')
+    subprocess.check_call([sys.executable, '-m', 'pip', 'install', '-q', 'triton'])
+    import triton
+
 import torch
 import triton
 import triton.language as tl
