@@ -1,6 +1,6 @@
 # 维护与发布手册
 
-本页用于记录项目维护者和贡献者的日常工作约定，目标是把仓库资产、章节汇总、使用方式、验证方式和发布流程放在同一处，避免维护信息分散。
+本页用于记录项目维护者和贡献者的日常工作约定，目标是把仓库资产、部分汇总、使用方式、验证方式和发布流程放在同一处，避免维护信息分散。
 
 ## 仓库资产总览
 
@@ -12,17 +12,17 @@
 - `docs/contributing.md`：贡献指南，说明如何参与开发和测试
 - `docs/maintenance.md`：维护与发布手册，说明仓库如何维护
 
-### 章节内容
+### 部分内容
 
-- `docs/00_Prerequisites/`：Chapter 0，前置知识与环境准备
-- `docs/01_Hardware_Math_and_Systems/`：Chapter 1，硬件、算力推导与系统级理论
-- `docs/02_PyTorch_Algorithms/`：Chapter 2，PyTorch 算法实战
-- `docs/03_CUDA_and_Triton_Kernels/`：Chapter 3，CUDA C++ 与 Triton 算子开发
+- `docs/00_Prerequisites/`：Part 0，前置知识与环境准备
+- `docs/01_Hardware_Math_and_Systems/`：Part 1，硬件、算力推导与系统级理论
+- `docs/02_PyTorch_Algorithms/`：Part 2，PyTorch 算法实战
+- `docs/03_CUDA_and_Triton_Kernels/`：Part 3，CUDA C++ 与 Triton 算子开发
 
 ### 练习与验证
 
-- `test_notebook_answers.py`：Chapter 2 / 3 的通用 Notebook 验证脚本
-- `test_chapter0_1_notebooks.py`：Chapter 0 / 1 的顺序执行验证脚本
+- `test_notebook_answers.py`：Part 2 / 3 的通用 Notebook 验证脚本
+- `test_chapter0_1_notebooks.py`：Part 0 / 1 的顺序执行验证脚本
 - `check_chapter_links.py`：站内链接检查脚本
 
 ### 过程文件
@@ -42,7 +42,7 @@
 
 - `requirements/base.txt`：基础依赖版本的主来源
 - `requirements/dev.txt`：开发和测试依赖版本的主来源
-- `requirements/gpu.txt`：Chapter 3 / Triton / CUDA 扩展依赖版本的主来源
+- `requirements/gpu.txt`：Part 3 / Triton / CUDA 扩展依赖版本的主来源
 - `environment.yml`：只负责 Python 版本和串联依赖，不应重复维护另一套独立版本表
 - `cnb/environment.yml`：CNB 侧环境骨架，原则上复用同一套版本约定
 
@@ -50,7 +50,7 @@
 
 ## 源文件与生成物
 
-仓库里的章节内容遵循“源文件在根目录，网页产物在 `docs/`”的原则。
+仓库里的部分内容遵循“源文件在根目录，网页产物在 `docs/`”的原则。
 
 ### 源文件
 
@@ -58,9 +58,9 @@
 - 根目录下的 `01_Hardware_Math_and_Systems/`
 - 根目录下的 `02_PyTorch_Algorithms/`
 - 根目录下的 `03_CUDA_and_Triton_Kernels/`
-- 根目录下的章节 `intro.md`
-- 根目录下的章节练习 `*.ipynb`
-- 根目录下的章节理论 `*.md`
+- 根目录下的部分 `intro.md`
+- 根目录下的部分练习 `*.ipynb`
+- 根目录下的部分理论 `*.md`
 
 ### 生成物
 
@@ -69,11 +69,11 @@
 - `docs/02_PyTorch_Algorithms/`
 - `docs/03_CUDA_and_Triton_Kernels/`
 
-这些目录中的章节页面通常由 `convert_notebook.py` 从根目录源文件同步生成。维护时应优先修改根目录源文件，再重新生成 `docs/` 页面。
+这些目录中的部分页面通常由 `convert_notebook.py` 从根目录源文件同步生成。维护时应优先修改根目录源文件，再重新生成 `docs/` 页面。
 
 `convert_notebook.py` 现在支持两种运行方式：
 
-- 全量模式：不带参数运行，重建 Chapter 2 / 3 的整章 `docs/` 镜像
+- 全量模式：不带参数运行，重建 Part 2 / 3 的整章 `docs/` 镜像
 - 局部模式：通过 `--dir` 或 `--file` 只同步指定目录或文件，适合只修某几个 notebook 时使用
 
 局部模式示例：
@@ -97,8 +97,8 @@ python convert_notebook.py --dry-run --dir 03_CUDA_and_Triton_Kernels
 
 ## 维护目标
 
-- 保持章节内容、站点导航、Notebook 入口和测试脚本同步
-- 控制改动范围，避免跨章节的大面积联动回归
+- 保持部分内容、站点导航、Notebook 入口和测试脚本同步
+- 控制改动范围，避免跨部分的大面积联动回归
 - 将可验证的变更拆成小提交，便于 review 和回滚
 - 让维护工作可以被复用，而不是依赖某个人的记忆
 - 把操作系统、包版本、测试脚本和云端环境纳入同一套维护口径
@@ -106,8 +106,8 @@ python convert_notebook.py --dry-run --dir 03_CUDA_and_Triton_Kernels
 ## 本地 GPU 验证基线
 
 - 当前已验证的本地 GPU 基线是 **Linux 22.04 + 50 系 NVIDIA 显卡 + `llm_algo` conda 环境**
-- Chapter 2 在该环境下的答案区已验证通过
-- Chapter 3 在该环境下的答案区已验证通过
+- Part 2 在该环境下的答案区已验证通过
+- Part 3 在该环境下的答案区已验证通过
 - 40 系显卡暂未作为已验证基线，后续应单独补充兼容矩阵与版本验证
 
 ## 过程文件约定
@@ -118,7 +118,7 @@ python convert_notebook.py --dry-run --dir 03_CUDA_and_Triton_Kernels
 - `PLAN_*.md`
 - `SUMMARY_*.md`
 
-这类文件只用于维护协作，不进入站点导航，不作为学习内容展示，不参与章节侧边栏配置。
+这类文件只用于维护协作，不进入站点导航，不作为学习内容展示，不参与部分侧边栏配置。
 
 当一轮维护结束后，这些文件可以按需要：
 
@@ -138,10 +138,10 @@ python convert_notebook.py --dry-run --dir 03_CUDA_and_Triton_Kernels
 - `test_chapter0_1_notebooks.py`：第零部分 / 第一部分验证
 - `test_notebook_answers.py`：第二部分 / 第三部分验证
 - `check_chapter_links.py`：站内链接检查
-- `check_source_docs_mirror.py`：章节正文与 docs 镜像一致性检查
+- `check_source_docs_mirror.py`：部分正文与 docs 镜像一致性检查
 - `convert_chapter0_1.py`：第零部分 / 第一部分 source -> docs 转换
 - `convert_notebook.py`：第二部分 / 第三部分 source -> docs 转换
-  - 默认全量重建 Chapter 2 / 3 的 `docs/` 镜像
+  - 默认全量重建 Part 2 / 3 的 `docs/` 镜像
   - 支持 `--dir` / `--file` 局部同步
   - 支持 `--dry-run` 预览影响范围
 - `SESSION_HANDOFF.md`：当前交接记录
@@ -158,7 +158,7 @@ python convert_notebook.py --dry-run --dir 03_CUDA_and_Triton_Kernels
   - CNB
   - 在线 Notebook
   - Docker / 云端 GPU
-- 负责 Chapter 0 / 1 / 2 / 3 的环境决策树和验证顺序
+- 负责 Part 0 / 1 / 2 / 3 的环境决策树和验证顺序
 
 ### `cnb/README.md`
 
@@ -173,7 +173,7 @@ python convert_notebook.py --dry-run --dir 03_CUDA_and_Triton_Kernels
 - 负责维护规则、发布规则和验证规则
 - 记录：
   - 本地 / CNB / GPU 的边界
-  - 章节分组和占位规范
+  - 部分分组和占位规范
   - 版本来源与测试脚本
   - 发布前检查清单
 
@@ -198,7 +198,7 @@ python convert_notebook.py --dry-run --dir 03_CUDA_and_Triton_Kernels
 确认这次修改属于哪一类：
 
 - 文档收口
-- 章节内容修复
+- 部分内容修复
 - Notebook 练习补齐
 - 站点导航调整
 - 环境文件更新
@@ -208,12 +208,12 @@ python convert_notebook.py --dry-run --dir 03_CUDA_and_Triton_Kernels
 
 ### 2. 先改入口，再改内容
 
-如果涉及章节结构变化，先同步：
+如果涉及部分结构变化，先同步：
 
 - `README.md`
 - `docs/index.md`
 - `docs/.vitepress/config.mts`
-- 章节 `intro.md`
+- 部分 `intro.md`
 
 然后再迁移具体文件和链接。
 
@@ -221,39 +221,54 @@ python convert_notebook.py --dry-run --dir 03_CUDA_and_Triton_Kernels
 
 建议按改动类型选择测试：
 
+- 统一入口：`python verify.py chapter0_1` / `python verify.py chapter2` / `python verify.py chapter3` / `python verify.py all`
 - 文档链接：`python check_chapter_links.py`
 - 站点构建：`cd docs && npm run docs:build`
-- Chapter 0 / 1 练习：`python test_chapter0_1_notebooks.py`
-- Chapter 2 / 3 题目答案：`python test_notebook_answers.py --all --dir 02_PyTorch_Algorithms --mode both`
-- Chapter 3 内核题：`python test_notebook_answers.py --all --dir 03_CUDA_and_Triton_Kernels --mode both`
+- Part 0 / 1 练习：`python test_chapter0_1_notebooks.py`
+- Part 2 / 3 题目答案：`python test_notebook_answers.py --all --dir 02_PyTorch_Algorithms --mode both`
+- Part 3 内核题：`python test_notebook_answers.py --all --dir 03_CUDA_and_Triton_Kernels --mode both`
+- Part 3 入口页：检查 `03_CUDA_and_Triton_Kernels/intro.md` 与 `docs/03_CUDA_and_Triton_Kernels/intro.md` 的链接可用性
 
 ### 4. 再做提交
 
 推荐按功能拆 commit：
 
 - `docs(...)`：导学、首页、站点导航、链接收口
-- `feat(...)`：新增练习、章节内容、脚本能力
+- `feat(...)`：新增练习、部分内容、脚本能力
 - `test(...)`：新增或调整验证脚本
 - `chore(...)`：环境、配置、辅助文档
 
-## 章节维护原则
+## 部分维护原则
 
-- Chapter 0：优先保证入口清晰、练习闭环完整
-- Chapter 1：优先保证理论文档准确，练习资产与导学一致
-- Chapter 2：优先保证题目链接、站内导学和 `.md` 页面一致
-- Chapter 3：优先保证 GPU 环境说明、Triton/CUDA 路径和站内链接一致
-- Chapter 2 / 3 的软件环境分层属于教程主体的一部分，环境文件、依赖拆分和章节内容要同步维护，不要把环境说明散落到单题里
-- Chapter 2 / 3 的 GPU 等级标注应尽量基于 notebook 代码审计结果；新增题目时要明确它是 CPU-first、GPU-recommended 还是 GPU-required
+- Part 0：优先保证入口清晰、练习闭环完整
+- Part 1：优先保证理论文档准确，练习资产与导学一致
+- Part 2：主定位是算法验证层，优先保证题目链接、站内导学、参考答案和 `.md` 页面一致
+- Part 3：主定位是工程实现层，优先保证 GPU 环境说明、Triton/CUDA 路径、导学页跳转和站内链接一致
+- Part 2 / 3 的软件环境分层属于教程主体的一部分，环境文件、依赖拆分和部分内容要同步维护，不要把环境说明散落到单题里
+- Part 2 / 3 的 GPU 等级标注应尽量基于 notebook 代码审计结果；新增题目时要明确它是 CPU-first、GPU-recommended 还是 GPU-required
+
+## Part 2 / 3 分工约定
+
+- Part 2 以算法验证为主：重点检查实现是否正确、参考答案是否一致、边界 case 是否覆盖、测试是否足够强
+- Part 3 以工程实现为主：重点检查 GPU 路径是否完整、kernel / module 链路是否闭合、导学页和镜像页的相对路径是否正确
+- Part 0 / 1 可以提及 CUDA / Triton 作为后续预告，但不承担 Part 3 的工程执行责任
+- Part 2 中允许存在 GPU 特例页，例如单独的 GPU-required 小节；此类页面应单独标注并按特例验证，不应推导出整章默认规则
+
+### Part 3 入口页补充约束
+
+- Part 3 的 `intro.md` 属于高风险入口页，既要检查源文件，也要检查 `docs/` 镜像页
+- 入口页中的 Task 链接、前置页、后续页和环境说明必须在镜像环境里保持可用
+- 任何涉及 Part 3 导学页结构或路径的改动，除了常规 notebook 验证外，还应补做一次链接可用性检查
 
 ## 分组原则
 
-章节里的“组”不是临时容器，而是一个可持续扩展的子方向。拆组时优先看这三点：
+部分里的“组”不是临时容器，而是一个可持续扩展的子方向。拆组时优先看这三点：
 
 - 是否有统一的学习目标
 - 是否沿着同一条依赖链展开
 - 后续能否继续补充，不需要频繁改组名或重排目录
 
-### Chapter 2 的子方向说明
+### Part 2 的子方向说明
 
 - **2.1 基础算子**：Transformer 最小构件
 - **2.2 模型架构**：把算子组装成完整 block / router / model
@@ -264,7 +279,7 @@ python convert_notebook.py --dry-run --dir 03_CUDA_and_Triton_Kernels
 - **2.7 高级推理优化**：Speculative Decoding、RadixAttention、推理量化
 - **2.8 分布式与扩展**：Checkpointing、QLoRA、ZeRO、并行扩展
 
-### Chapter 3 的子方向说明
+### Part 3 的子方向说明
 
 - **3.1 Triton 基础**：Triton 编程模型与基础 kernel
 - **3.2 Triton 进阶**：融合算子、Softmax、RoPE、FlashAttention
