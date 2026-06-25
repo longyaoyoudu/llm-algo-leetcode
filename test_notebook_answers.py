@@ -16,12 +16,12 @@ import tempfile
 
 # 理论章节（无代码实现，只需占位符测试）
 THEORY_CHAPTERS = [
-    '20_CUDA_vs_Triton_vs_PyTorch.ipynb',
+    '21_CUDA_vs_Triton_vs_PyTorch.ipynb',
 ]
 
 # 分布式多进程章节（需要特殊环境，测试脚本中只验证结构）
 DISTRIBUTED_CHAPTERS = [
-    '16_Distributed_Communication_Primitives.ipynb',
+    '19_Distributed_Communication_Primitives.ipynb',
 ]
 
 

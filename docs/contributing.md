@@ -75,6 +75,8 @@ python test_notebook_answers.py --all --dir 01_Hardware_Math_and_Systems --mode 
 
 在 Jupyter Notebook (本地或云端) 中修改逻辑。
 
+如果你是在新增或重写题目页，请先参考 [题目模板与网页化转换规范](./template_guidelines.md)，保持题目区、测试区、防剧透区和答案区结构一致。
+
 ### 2. 答案验证与防透题检查
 
 ```bash

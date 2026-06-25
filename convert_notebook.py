@@ -8,6 +8,7 @@ import argparse
 SOURCE_DIRS = [
     "02_PyTorch_Algorithms",
     "03_CUDA_and_Triton_Kernels",
+    "04_CUDA_and_System_Optimization",
 ]
 
 def generate_cloud_env_block(ipynb_path):
@@ -154,6 +155,7 @@ def collect_targets(args):
         if not (
             norm.startswith("02_PyTorch_Algorithms" + os.sep)
             or norm.startswith("03_CUDA_and_Triton_Kernels" + os.sep)
+            or norm.startswith("04_CUDA_and_System_Optimization" + os.sep)
         ):
             continue
         seen.add(norm)
@@ -162,7 +164,11 @@ def collect_targets(args):
 
 
 def clean_full_docs_tree():
-    for d in ["docs/02_PyTorch_Algorithms", "docs/03_CUDA_and_Triton_Kernels"]:
+    for d in [
+        "docs/02_PyTorch_Algorithms",
+        "docs/03_CUDA_and_Triton_Kernels",
+        "docs/04_CUDA_and_System_Optimization",
+    ]:
         if os.path.exists(d):
             shutil.rmtree(d)
         os.makedirs(d, exist_ok=True)

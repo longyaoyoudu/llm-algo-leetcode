@@ -275,7 +275,7 @@ export default defineConfig({
         ]
       },
       {
-        text: '第三部分：CUDA 与 Triton 算子',
+        text: '第三部分：Triton 算子开发',
         items: [
           { text: '📖 完整导学', link: '/03_CUDA_and_Triton_Kernels/intro' },
           {
@@ -298,11 +298,12 @@ export default defineConfig({
             items: [
               { text: '📖 组页', link: '/03_CUDA_and_Triton_Kernels/3_2' },
               { text: '06. Triton Fused Softmax', link: '/03_CUDA_and_Triton_Kernels/06_Triton_Fused_Softmax' },
+              { text: '06.5 Triton Design Patterns', link: '/03_CUDA_and_Triton_Kernels/06_5_Triton_Design_Patterns' },
               { text: '07. Triton Fused RoPE', link: '/03_CUDA_and_Triton_Kernels/07_Triton_Fused_RoPE' },
               { text: '08. Triton Flash Attention', link: '/03_CUDA_and_Triton_Kernels/08_Triton_Flash_Attention' },
-              { text: '09. Triton Fused LoRA', link: '/03_CUDA_and_Triton_Kernels/09_Triton_Fused_LoRA' },
-              { text: '10. Triton KV Cache and PagedAttention', link: '/03_CUDA_and_Triton_Kernels/10_Triton_KV_Cache_and_PagedAttention' },
-              { text: '11. Triton Quantization Support', link: '/03_CUDA_and_Triton_Kernels/11_Triton_Quantization_Support' }
+              { text: '09. Triton PagedAttention', link: '/03_CUDA_and_Triton_Kernels/09_Triton_PagedAttention' },
+              { text: '10. Triton Quantization', link: '/03_CUDA_and_Triton_Kernels/10_Triton_Quantization' },
+              { text: '11. Triton Multi-LoRA', link: '/03_CUDA_and_Triton_Kernels/11_Triton_Multi_LoRA' }
             ]
           },
           {
@@ -315,27 +316,51 @@ export default defineConfig({
               { text: '13. Triton Llama3 Block Project', link: '/03_CUDA_and_Triton_Kernels/13_Triton_Llama3_Block_Project' },
               { text: '14. Triton Best Practices and FAQ', link: '/03_CUDA_and_Triton_Kernels/14_Triton_Best_Practices_and_FAQ' }
             ]
-          },
+          }
+        ]
+      },
+      {
+        text: '第四部分：CUDA C++ 与系统优化',
+        items: [
+          { text: '📖 完整导学', link: '/04_CUDA_and_System_Optimization/intro' },
           {
-            text: '3.4 CUDA 内核与显存优化',
-            link: '/03_CUDA_and_Triton_Kernels/3_4',
+            text: '4.1 CUDA 编程基础',
+            link: '/04_CUDA_and_System_Optimization/4_1',
             collapsed: true,
             items: [
-              { text: '📖 组页', link: '/03_CUDA_and_Triton_Kernels/3_4' },
-              { text: '15. PyTorch CUDA Streams and Transfer', link: '/03_CUDA_and_Triton_Kernels/15_PyTorch_CUDA_Streams_and_Transfer' },
-              { text: '18. CUDA Custom Kernel Intro', link: '/03_CUDA_and_Triton_Kernels/18_CUDA_Custom_Kernel_Intro' },
-              { text: '19. CUDA Shared Memory Optimization', link: '/03_CUDA_and_Triton_Kernels/19_CUDA_Shared_Memory_Optimization' }
+              { text: '📖 组页', link: '/04_CUDA_and_System_Optimization/4_1' },
+              { text: '15. CUDA Custom Kernel Intro', link: '/04_CUDA_and_System_Optimization/15_CUDA_Custom_Kernel_Intro' },
+              { text: '16. CUDA Shared Memory Optimization', link: '/04_CUDA_and_System_Optimization/16_CUDA_Shared_Memory_Optimization' }
             ]
           },
           {
-            text: '3.5 CUDA 系统扩展',
-            link: '/03_CUDA_and_Triton_Kernels/3_5',
+            text: '4.2 系统级性能优化',
+            link: '/04_CUDA_and_System_Optimization/4_2',
             collapsed: true,
             items: [
-              { text: '📖 组页', link: '/03_CUDA_and_Triton_Kernels/3_5' },
-              { text: '16. Distributed Communication Primitives', link: '/03_CUDA_and_Triton_Kernels/16_Distributed_Communication_Primitives' },
-              { text: '17. DeepSpeed Zero Config', link: '/03_CUDA_and_Triton_Kernels/17_DeepSpeed_Zero_Config' },
-              { text: '20. CUDA vs Triton vs PyTorch', link: '/03_CUDA_and_Triton_Kernels/20_CUDA_vs_Triton_vs_PyTorch' }
+              { text: '📖 组页', link: '/04_CUDA_and_System_Optimization/4_2' },
+              { text: '17. CUDA Streams and Transfer', link: '/04_CUDA_and_System_Optimization/17_PyTorch_CUDA_Streams_and_Transfer' },
+              { text: '18. CUDA Graph and JIT Compile', link: '/04_CUDA_and_System_Optimization/18_CUDA_Graph_and_JIT_Compile' }
+            ]
+          },
+          {
+            text: '4.3 分布式训练工程',
+            link: '/04_CUDA_and_System_Optimization/4_3',
+            collapsed: true,
+            items: [
+              { text: '📖 组页', link: '/04_CUDA_and_System_Optimization/4_3' },
+              { text: '19. Distributed Communication Primitives', link: '/04_CUDA_and_System_Optimization/19_Distributed_Communication_Primitives' },
+              { text: '20. DeepSpeed ZeRO & Offload', link: '/04_CUDA_and_System_Optimization/20_DeepSpeed_Zero_Config' }
+            ]
+          },
+          {
+            text: '4.4 架构视野',
+            link: '/04_CUDA_and_System_Optimization/4_4',
+            collapsed: true,
+            items: [
+              { text: '📖 组页', link: '/04_CUDA_and_System_Optimization/4_4' },
+              { text: '21. CUDA vs Triton vs PyTorch', link: '/04_CUDA_and_System_Optimization/21_CUDA_vs_Triton_vs_PyTorch' },
+              { text: '22. TCO and Hardware Selection', link: '/04_CUDA_and_System_Optimization/22_TCO_and_Hardware_Selection' }
             ]
           }
         ]

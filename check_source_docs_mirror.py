@@ -21,6 +21,7 @@ SOURCE_DIRS = [
     ROOT / "01_Hardware_Math_and_Systems",
     ROOT / "02_PyTorch_Algorithms",
     ROOT / "03_CUDA_and_Triton_Kernels",
+    ROOT / "04_CUDA_and_System_Optimization",
 ]
 DOCS_DIR = ROOT / "docs"
 def iter_source_pages() -> set[Path]:

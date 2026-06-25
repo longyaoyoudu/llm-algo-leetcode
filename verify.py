@@ -93,6 +93,31 @@ def check_chapter3_intro_links() -> None:
     print("[verify] Chapter 3 intro links are valid in source and docs.")
 
 
+def check_chapter4_intro_links() -> None:
+    """Verify source/docs entry-page links for Chapter 4."""
+    link_re = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
+    paths = [
+        ROOT / "04_CUDA_and_System_Optimization/intro.md",
+        ROOT / "docs/04_CUDA_and_System_Optimization/intro.md",
+    ]
+
+    missing: list[tuple[str, str]] = []
+    for path in paths:
+        text = path.read_text(encoding="utf-8")
+        for link in link_re.findall(text):
+            candidates = resolve_candidates(path, link)
+            if candidates and not any(candidate.exists() for candidate in candidates):
+                missing.append((str(path.relative_to(ROOT)), link))
+
+    if missing:
+        print("[verify] Chapter 4 intro link check failed:")
+        for path, link in missing:
+            print(f"  - {path}: {link}")
+        raise SystemExit(1)
+
+    print("[verify] Chapter 4 intro links are valid in source and docs.")
+
+
 def verify_chapter0_1(*, build_docs: bool) -> None:
     run_python("convert_chapter0_1.py")
     run_python("check_chapter_links.py", "--scope", "source")
@@ -125,10 +150,23 @@ def verify_chapter3(*, build_docs: bool) -> None:
         run_docs_build()
 
 
+def verify_chapter4(*, build_docs: bool) -> None:
+    run_python("convert_notebook.py", "--dir", "04_CUDA_and_System_Optimization")
+    run_python("check_source_docs_mirror.py")
+    if has_cuda():
+        run_python("test_notebook_answers.py", "--all", "--dir", "04_CUDA_and_System_Optimization", "--mode", "both")
+    else:
+        print("[verify] GPU not available, skipping Chapter 4 notebook answer tests.")
+    check_chapter4_intro_links()
+    if build_docs:
+        run_docs_build()
+
+
 def verify_all(*, build_docs: bool) -> None:
     verify_chapter0_1(build_docs=False)
     verify_chapter2(build_docs=False)
     verify_chapter3(build_docs=build_docs)
+    verify_chapter4(build_docs=build_docs)
     if build_docs:
         # Chapter 3 already built docs; keep the all-target behavior explicit.
         pass
@@ -142,6 +180,7 @@ def main() -> int:
     sub.add_parser("chapter0_1", help="Verify Chapter 0 / 1.")
     sub.add_parser("chapter2", help="Verify Chapter 2.")
     sub.add_parser("chapter3", help="Verify Chapter 3.")
+    sub.add_parser("chapter4", help="Verify Chapter 4.")
     sub.add_parser("all", help="Verify all chapters.")
 
     raw_args = sys.argv[1:]
@@ -156,6 +195,8 @@ def main() -> int:
         verify_chapter2(build_docs=build_docs)
     elif target == "chapter3":
         verify_chapter3(build_docs=build_docs)
+    elif target == "chapter4":
+        verify_chapter4(build_docs=build_docs)
     elif target == "all":
         verify_all(build_docs=build_docs)
     else:

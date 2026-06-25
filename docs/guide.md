@@ -8,7 +8,8 @@
 |---|---|---|
 | 先入门 Part 0 / 1 | 在线 Notebook 或本地基础环境 | 主要是 Python、Jupyter、NumPy |
 | 系统学习 Part 2 | 统一 Python 环境 + 本地 CPU；部分题再切 GPU | 大多数题可 CPU-first |
-| 完整学习 Part 3 | Linux + NVIDIA GPU + CUDA / Triton | GPU-required |
+| 完整学习 Part 3 | Linux + NVIDIA GPU + Triton | GPU-required |
+| 完整学习 Part 4 | Linux + NVIDIA GPU + CUDA / system tooling | GPU-required |
 | 想统一团队环境 | CNB / Docker / 云端 GPU | 适合一致性和复现 |
 
 ## 环境部署决策树
@@ -33,8 +34,13 @@
 
 4. 要做 Part 3
    - 优先本地 GPU 或 CNB GPU 入口
-   - 需要 CUDA / Triton / GPU 可见性
+   - 需要 Triton / GPU 可见性
    - 当前 CNB 默认交互环境不等于 GPU 环境
+
+5. 要做 Part 4
+   - 优先本地 GPU 或 CNB GPU 入口
+   - 需要 CUDA / system tooling
+   - 需要单独验证系统优化与分布式工程页面
 
 5. 要给团队/课程统一环境
    - 优先 CNB / Docker
@@ -93,7 +99,9 @@
 
 如果你在 Colab 中打开 Part 3，请优先选择免费的 `T4 GPU`，或者任意可用的 GPU runtime，再运行 notebook 最前面的环境准备单元。该单元会在 `triton` 缺失时自动安装依赖；如果连 GPU runtime 都没有，Part 3 只能阅读，不能按完整路径验收。
 
-Part 3 的主叙事链是 `PyTorch -> Triton -> CUDA`：先在 PyTorch 层理解算法与行为，再用 Triton 把算子高效落到 GPU，最后在 CUDA 层处理更底层的控制、系统扩展和工程边界。
+Part 3 的主叙事链是 `PyTorch -> Triton`：先在 PyTorch 层理解算法与行为，再用 Triton 把算子高效落到 GPU。
+
+Part 4 则承接 `CUDA -> System -> Architecture`：继续向下处理 kernel、通信、ZeRO 和技术选型。
 
 ### 4. 统一交付层
 
@@ -109,7 +117,7 @@ Part 3 的主叙事链是 `PyTorch -> Triton -> CUDA`：先在 PyTorch 层理解
 - Docker
 - 云端 GPU 托管环境
 
-这层主要服务 Part 2 后段和 Part 3，目标是把“能跑”变成“大家都按同一套环境跑”。
+这层主要服务 Part 2 后段、Part 3 和 Part 4，目标是把“能跑”变成“大家都按同一套环境跑”。
 
 当前验证状态：
 - **Colab**：已验证，可一键直达
@@ -123,9 +131,9 @@ Part 3 的主叙事链是 `PyTorch -> Triton -> CUDA`：先在 PyTorch 层理解
 
 ### 操作系统差异
 
-- **Linux 22.04**：当前已验证的主基线，优先作为本地开发和 Part 2 / 3 验证环境
+- **Linux 22.04**：当前已验证的主基线，优先作为本地开发和 Part 2 / 3 / 4 验证环境
 - **WSL2**：可作为过渡方案，但尚未作为正式主基线承诺
-- **macOS**：适合轻量阅读和部分 Python 逻辑练习；Part 3 的完整 GPU / Triton 体验不做默认承诺
+- **macOS**：适合轻量阅读和部分 Python 逻辑练习；Part 3 / Part 4 的完整 GPU 体验不做默认承诺
 - **Windows 原生环境**：不作为主支持路径，若要学习建议优先走 WSL2、CNB 或在线 Notebook
 
 ### conda / venv 选择
@@ -138,7 +146,7 @@ Part 3 的主叙事链是 `PyTorch -> Triton -> CUDA`：先在 PyTorch 层理解
 
 - `requirements/base.txt`：基础版本来源
 - `requirements/dev.txt`：开发和测试版本来源
-- `requirements/gpu.txt`：Part 3 / Triton / CUDA 扩展版本来源
+- `requirements/gpu.txt`：Part 3 / Part 4 / Triton / CUDA 扩展版本来源
 - `environment.yml`：只负责 Python 版本和把上述依赖串起来
 - `cnb/environment.yml`：CNB 侧的统一环境骨架
 
@@ -151,7 +159,7 @@ Part 3 的主叙事链是 `PyTorch -> Triton -> CUDA`：先在 PyTorch 层理解
 - `verify.py`：统一维护入口，优先用于日常验证和部分级回归
 - `project_test_scripts.md`：测试脚本索引
 - `test_chapter0_1_notebooks.py`：Part 0 / 1 的顺序执行验证
-- `test_notebook_answers.py`：Part 2 / 3 的答案区验证
+- `test_notebook_answers.py`：Part 2 / 3 / 4 的答案区验证
 - `check_chapter_links.py`：站内链接检查
 
 如果环境已经装好，但测试脚本跑不起来，通常说明依赖版本、OS 差异或 GPU 兼容性还没有收口。
@@ -159,6 +167,18 @@ Part 3 的主叙事链是 `PyTorch -> Triton -> CUDA`：先在 PyTorch 层理解
 这里也是一条**二选一且有优先级**的关系：
 - 日常回归先跑 `verify.py`
 - 只在排查单个 notebook、单个目录或底层脚本实现时，才直接跑旧脚本
+
+`verify.py` 的常用入口是：
+
+```bash
+python verify.py chapter0_1
+python verify.py chapter2
+python verify.py chapter3
+python verify.py chapter4
+python verify.py all
+```
+
+默认会做转换、镜像检查和章节级验证；加 `--no-build` 可以跳过 docs 构建。
 
 ### CNB 里怎么验证
 
@@ -206,35 +226,37 @@ python test_notebook_answers.py --all --dir 02_PyTorch_Algorithms --mode both
 
 Part 2 是 CNB 里最应该优先跑通的主链路。
 
-#### 4. Part 3 只在有 GPU 时做完整验证
+#### 4. Part 3 / Part 4 只在有 GPU 时做完整验证
 
 ```bash
 python verify.py chapter3 --no-build
+python verify.py chapter4 --no-build
 ```
 
 如果需要绕过统一入口做底层排查，再直接跑：
 
 ```bash
 python test_notebook_answers.py --all --dir 03_CUDA_and_Triton_Kernels --mode both
+python test_notebook_answers.py --all --dir 04_CUDA_and_System_Optimization --mode both
 ```
 
-如果当前 CNB 实例没有 GPU，`torch.cuda.is_available()` 会是 `False`，这时不要把 Part 3 的 GPU 结果当成最终验收。
+如果当前 CNB 实例没有 GPU，`torch.cuda.is_available()` 会是 `False`，这时不要把 Part 3 / Part 4 的 GPU 结果当成最终验收。
 
-### Part 3 的 GPU 入口
+### Part 3 / Part 4 的 GPU 入口
 
-Part 3 需要单独的 GPU 验证入口，不建议和默认 CNB 交互环境混用。
+Part 3 / Part 4 需要单独的 GPU 验证入口，不建议和默认 CNB 交互环境混用。
 
 - 默认 CNB 交互环境：面向 Part 0 / 1 / 2，主要验证 Python、Notebook 和 CPU 路径
-- GPU 验证入口：面向 Part 3，必须使用平台分配到 GPU 节点的会话
+- GPU 验证入口：面向 Part 3 / Part 4，必须使用平台分配到 GPU 节点的会话
 - 对应的 CNB 入口名：`vscode-gpu`
-- 验证脚本：`scripts/validate_chapter3_gpu.sh`
+- 验证脚本：`python verify.py chapter3 --no-build` / `python verify.py chapter4 --no-build`
 
 如果当前会话没有 GPU，就只做：
 - 环境检查
 - 站内链接检查
-- Part 3 的非 GPU 路径检查
+- Part 3 / Part 4 的非 GPU 路径检查
 
-不要把 `torch.cuda.is_available() == False` 的会话写成 Part 3 最终通过。
+不要把 `torch.cuda.is_available() == False` 的会话写成 Part 3 / Part 4 最终通过。
 
 ### Notebook 使用
 
@@ -243,7 +265,7 @@ Part 3 需要单独的 GPU 验证入口，不建议和默认 CNB 交互环境混
 - 刷题流程：先看导学，再填 TODO，再跑测试
 - 如果 notebook 报 `name not defined`，通常是前面的 cell 没按顺序执行
 
-## Part 2 / 3 的实际要求
+## Part 2 / 3 / 4 的实际要求
 
 ### Part 2
 
@@ -261,18 +283,26 @@ Part 3 需要单独的 GPU 验证入口，不建议和默认 CNB 交互环境混
 - 推荐策略：把 Linux 作为默认参考环境，其他系统只作为补充
 - 已验证：当前本机 `llm_algo` 环境下，Part 3 答案区全量通过
 
+### Part 4
+
+- 整体定位：GPU-required
+- 完整体验：Linux + NVIDIA GPU + CUDA / system tooling
+- 代码审计结果：本章直接面向 CUDA kernel、通信、系统优化和架构选型
+- 推荐策略：把 Linux + GPU 作为默认参考环境，其他系统只作为补充
+- 当前状态：已通过转换、镜像和入口链接检查；完整 GPU 答案区仍需在 GPU 环境补验
+
 ### 本地平台备注
 
 - **Linux 22.04**：已验证，是当前最稳的本地参考环境
-- **50 系 NVIDIA GPU**：已验证，是当前本机 GPU 学习与 Part 3 验证基线
+- **50 系 NVIDIA GPU**：已验证，是当前本机 GPU 学习与 Part 3 验证基线；Part 4 需要补充完整 GPU 验证
 - **40 系 NVIDIA GPU**：暂未作为已验证基线，后续补充兼容矩阵
 - **WSL2**：理论上可作为过渡方案，但尚未作为主验证基线
-- **macOS**：可能接近可用，但尚未完成逐项验证，不应默认承诺 Part 3 完整体验
+- **macOS**：可能接近可用，但尚未完成逐项验证，不应默认承诺 Part 3 / Part 4 完整体验
 
 ### 本地 GPU 兼容矩阵（当前）
 
 | GPU 代际 | 当前状态 | 适用范围 | 备注 |
 |---|---|---|---|
-| 50 系 NVIDIA GPU | 已验证 | Part 2 / Part 3 本地验证基线 | 当前本机实测基线，优先按此参考 |
-| 40 系 NVIDIA GPU | 待补充验证 | Part 3 兼容目标 | 后续单独补版本与兼容结果，不默认承诺 |
-| 30 系 NVIDIA GPU | 待补充验证 | Part 3 兼容目标 | 仅作为潜在兼容目标，需单独实测 |
+| 50 系 NVIDIA GPU | 已验证 Part 2 / 3，待补 Part 4 | Part 2 / Part 3 本地验证基线，Part 4 兼容目标 | Part 4 需要单独补 GPU 结果 |
+| 40 系 NVIDIA GPU | 待补充验证 | Part 3 / Part 4 兼容目标 | 后续单独补版本与兼容结果，不默认承诺 |
+| 30 系 NVIDIA GPU | 待补充验证 | Part 3 / Part 4 兼容目标 | 仅作为潜在兼容目标，需单独实测 |
