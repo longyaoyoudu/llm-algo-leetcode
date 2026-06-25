@@ -1,4 +1,4 @@
-# 20. CUDA vs Triton vs PyTorch | 大模型 Infra 架构视野：PyTorch vs Triton vs CUDA C++ 的三层降维
+# 21. CUDA vs Triton vs PyTorch | 大模型 Infra 架构视野：PyTorch vs Triton vs CUDA C++ 的三层降维
 
 **难度：** Hard | **标签：** `Architecture`, `Summary`, `Infra` | **目标人群：** 核心 Infra 与算子开发
 
@@ -6,7 +6,7 @@
 >
 > 本章节的实战代码可以点击以下链接在免费 GPU 算力平台上直接运行：
 >
-> [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/datawhalechina/llm-algo-leetcode/blob/main/03_CUDA_and_Triton_Kernels/20_CUDA_vs_Triton_vs_PyTorch.ipynb)
+> [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/datawhalechina/llm-algo-leetcode/blob/main/04_CUDA_and_System_Optimization/21_CUDA_vs_Triton_vs_PyTorch.ipynb)
 > [![Open In Studio](https://img.shields.io/badge/Open%20In-ModelScope-blueviolet?logo=alibabacloud)](https://modelscope.cn/my/mynotebook) *(国内推荐：魔搭社区免费实例)*
 
 

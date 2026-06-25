@@ -1,4 +1,4 @@
-# 18. CUDA Custom Kernel Intro | 硬核降维打击：原生 CUDA C++ 编程与 PyTorch C++ 扩展 (JIT)
+# 15. CUDA Custom Kernel Intro | 硬核降维打击：原生 CUDA C++ 编程与 PyTorch C++ 扩展 (JIT)
 
 **难度：** Hard | **标签：** `CUDA C++`, `JIT Extension`, `Vector Add` | **目标人群：** 核心 Infra 与算子开发
 
@@ -6,11 +6,11 @@
 >
 > 本章节的实战代码可以点击以下链接在免费 GPU 算力平台上直接运行：
 >
-> [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/datawhalechina/llm-algo-leetcode/blob/main/03_CUDA_and_Triton_Kernels/18_CUDA_Custom_Kernel_Intro.ipynb)
+> [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/datawhalechina/llm-algo-leetcode/blob/main/04_CUDA_and_System_Optimization/15_CUDA_Custom_Kernel_Intro.ipynb)
 > [![Open In Studio](https://img.shields.io/badge/Open%20In-ModelScope-blueviolet?logo=alibabacloud)](https://modelscope.cn/my/mynotebook) *(国内推荐：魔搭社区免费实例)*
 
 
-如果你在面试中只懂写 Triton，虽然能解决日常的算子融合问题，但面试官一定会问你：“Triton 底层的 Grid/Block 是怎么映射到 CUDA 线程的？”
+如果你在面试中只懂写 Triton，虽然能解决日常的算子融合问题，但面试中常会追问：“Triton 底层的 Grid/Block 是怎么映射到 CUDA 线程的？”
 本节我们将打破 Python 的温室，使用 `torch.utils.cpp_extension.load_inline`，直接在 Jupyter Notebook 的字符串里**手撕原生 CUDA C++ 核函数**，并且在后台即时 (JIT) 编译成 PyTorch 可用的模块。
 我们将从最经典的 Vector Add (向量加法) 开始，直观对比 Triton 的 `pid` 和 CUDA 的 `blockIdx.x * blockDim.x + threadIdx.x`。
 
@@ -152,8 +152,10 @@ def test_cuda_vector_add():
         raise NotImplementedError("请先完成 TODO 1 和 TODO 2")
     
     if not torch.cuda.is_available():
-        print("⏭️ 无 GPU，跳过测试")
-        return
+        print("⏭️ 无 GPU，完成结构检查；运行级验证需要 GPU。")
+        assert "vector_add_extension" in globals() or "cuda_source" in globals(), "缺少 CUDA 向量加法实现"
+        print("✅ CUDA 向量加法结构检查通过")
+        return True
     
     if 'vector_add_extension' not in globals():
         raise RuntimeError("CUDA 扩展编译失败，请检查 nvcc 是否安装")

@@ -1,4 +1,4 @@
-# 15. PyTorch CUDA Streams and Transfer | 突破 PCIe 瓶颈：CPU-GPU 锁页内存与 CUDA 异步流通信
+# 17. PyTorch CUDA Streams and Transfer | 突破 PCIe 瓶颈：CPU-GPU 锁页内存与 CUDA 异步流通信
 
 **难度：** Hard | **标签：** `System`, `CUDA Streams`, `Memory Transfer` | **目标人群：** 核心 Infra 与算子开发
 
@@ -6,7 +6,7 @@
 >
 > 本章节的实战代码可以点击以下链接在免费 GPU 算力平台上直接运行：
 >
-> [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/datawhalechina/llm-algo-leetcode/blob/main/03_CUDA_and_Triton_Kernels/15_PyTorch_CUDA_Streams_and_Transfer.ipynb)
+> [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/datawhalechina/llm-algo-leetcode/blob/main/04_CUDA_and_System_Optimization/17_PyTorch_CUDA_Streams_and_Transfer.ipynb)
 > [![Open In Studio](https://img.shields.io/badge/Open%20In-ModelScope-blueviolet?logo=alibabacloud)](https://modelscope.cn/my/mynotebook) *(国内推荐：魔搭社区免费实例)*
 
 
