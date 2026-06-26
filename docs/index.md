@@ -126,7 +126,7 @@ CNB 的具体使用方式和适用范围见 [使用指南](./guide.md)。
 
 ## 📄 开源协议
 
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="知识共享许可协议" style="border-width:0" src="https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-lightgrey" /></a><br />本作品采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>进行许可。
+本项目采用 [CC BY-NC-SA 4.0](./LICENSE) 协议进行许可。
 
 ---
 
@@ -135,6 +135,8 @@ CNB 的具体使用方式和适用范围见 [使用指南](./guide.md)。
 This is a practical LLM algorithm tutorial for learners from beginner to advanced. It focuses on Python, PyTorch, Transformers, inference optimization, VRAM management, and CUDA/Triton practice. Each concept is turned into a runnable, verifiable, and reviewable Jupyter Notebook exercise so you can move from "reading" to "writing, debugging, and optimizing".
 
 This project currently focuses on the Large Language Model (LLM) domain and does not expand into Diffusion or multimodal content. It also provides local test cases and a repeatable learning path for practice and review.
+
+License: [CC BY-NC-SA 4.0](./LICENSE).
 
 ### Features
 
