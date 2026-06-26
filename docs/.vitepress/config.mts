@@ -15,7 +15,11 @@ export default defineConfig({
   themeConfig: {
     logo: '/datawhale-logo.png',
     nav: [
-      { text: '开始刷题', link: '/01_Hardware_Math_and_Systems/01_Data_Types_and_Precision' },
+      { text: '第零部分\n前置知识与环境准备', link: '/00_Prerequisites/intro' },
+      { text: '第一部分\n硬件与系统基础', link: '/01_Hardware_Math_and_Systems/intro' },
+      { text: '第二部分\nPyTorch 核心算法', link: '/02_PyTorch_Algorithms/intro' },
+      { text: '第三部分\nTriton 算子开发', link: '/03_Triton_Kernels/intro' },
+      { text: '第四部分\nCUDA C++ 与系统优化', link: '/04_CUDA_and_System_Optimization/intro' },
       { text: 'GitHub 仓库', link: 'https://github.com/datawhalechina/llm-algo-leetcode' },
     ],
     search: {
@@ -53,7 +57,6 @@ export default defineConfig({
           { text: '📖 完整导学', link: '/00_Prerequisites/intro' },
           {
             text: '0A Python 基础',
-            link: '/00_Prerequisites/0A',
             collapsed: true,
             items: [
               { text: '📖 组页', link: '/00_Prerequisites/0A' },
@@ -63,7 +66,6 @@ export default defineConfig({
           },
           {
             text: '0B PyTorch 基础',
-            link: '/00_Prerequisites/0B',
             collapsed: true,
             items: [
               { text: '📖 组页', link: '/00_Prerequisites/0B' },
@@ -75,7 +77,6 @@ export default defineConfig({
           },
           {
             text: '0C 深度学习基础',
-            link: '/00_Prerequisites/0C',
             collapsed: true,
             items: [
               { text: '📖 组页', link: '/00_Prerequisites/0C' },
@@ -87,7 +88,6 @@ export default defineConfig({
           },
           {
             text: '0D 工具与调试',
-            link: '/00_Prerequisites/0D',
             collapsed: true,
             items: [
               { text: '📖 组页', link: '/00_Prerequisites/0D' },
@@ -105,7 +105,6 @@ export default defineConfig({
           { text: '📖 完整导学', link: '/01_Hardware_Math_and_Systems/intro' },
           {
             text: '1A 数值基础与算力估算',
-            link: '/01_Hardware_Math_and_Systems/1A',
             collapsed: true,
             items: [
               { text: '📖 组页', link: '/01_Hardware_Math_and_Systems/1A' },
@@ -117,7 +116,6 @@ export default defineConfig({
           },
           {
             text: '1B 单卡硬件与访存优化',
-            link: '/01_Hardware_Math_and_Systems/1B',
             collapsed: true,
             items: [
               { text: '📖 组页', link: '/01_Hardware_Math_and_Systems/1B' },
@@ -134,7 +132,6 @@ export default defineConfig({
           },
           {
             text: '1C 多卡通信与显存共享',
-            link: '/01_Hardware_Math_and_Systems/1C',
             collapsed: true,
             items: [
               { text: '📖 组页', link: '/01_Hardware_Math_and_Systems/1C' },
@@ -148,7 +145,6 @@ export default defineConfig({
           },
           {
             text: '1D 异构调度与算子编程',
-            link: '/01_Hardware_Math_and_Systems/1D',
             collapsed: true,
             items: [
               { text: '📖 组页', link: '/01_Hardware_Math_and_Systems/1D' },
@@ -166,7 +162,6 @@ export default defineConfig({
           },
           {
             text: '1E 编译优化与算力生态',
-            link: '/01_Hardware_Math_and_Systems/1E',
             collapsed: true,
             items: [
               { text: '📖 组页', link: '/01_Hardware_Math_and_Systems/1E' },
@@ -184,7 +179,6 @@ export default defineConfig({
           { text: '📖 完整导学', link: '/02_PyTorch_Algorithms/intro' },
           {
             text: '2.1 基础算子',
-            link: '/02_PyTorch_Algorithms/2_1',
             collapsed: true,
             items: [
               { text: '📖 组页', link: '/02_PyTorch_Algorithms/2_1' },
@@ -197,7 +191,6 @@ export default defineConfig({
           },
           {
             text: '2.2 模型架构',
-            link: '/02_PyTorch_Algorithms/2_2',
             collapsed: true,
             items: [
               { text: '📖 组页', link: '/02_PyTorch_Algorithms/2_2' },
@@ -209,7 +202,6 @@ export default defineConfig({
           },
           {
             text: '2.3 微调与训练技术',
-            link: '/02_PyTorch_Algorithms/2_3',
             collapsed: true,
             items: [
               { text: '📖 组页', link: '/02_PyTorch_Algorithms/2_3' },
@@ -220,7 +212,6 @@ export default defineConfig({
           },
           {
             text: '2.4 对齐技术',
-            link: '/02_PyTorch_Algorithms/2_4',
             collapsed: true,
             items: [
               { text: '📖 组页', link: '/02_PyTorch_Algorithms/2_4' },
@@ -230,7 +221,6 @@ export default defineConfig({
           },
           {
             text: '2.5 反向传播与显存优化',
-            link: '/02_PyTorch_Algorithms/2_5',
             collapsed: true,
             items: [
               { text: '📖 组页', link: '/02_PyTorch_Algorithms/2_5' },
@@ -239,7 +229,6 @@ export default defineConfig({
           },
           {
             text: '2.6 核心推理优化',
-            link: '/02_PyTorch_Algorithms/2_6',
             collapsed: true,
             items: [
               { text: '📖 组页', link: '/02_PyTorch_Algorithms/2_6' },
@@ -250,7 +239,6 @@ export default defineConfig({
           },
           {
             text: '2.7 高级推理优化',
-            link: '/02_PyTorch_Algorithms/2_7',
             collapsed: true,
             items: [
               { text: '📖 组页', link: '/02_PyTorch_Algorithms/2_7' },
@@ -261,7 +249,6 @@ export default defineConfig({
           },
           {
             text: '2.8 分布式与扩展',
-            link: '/02_PyTorch_Algorithms/2_8',
             collapsed: true,
             items: [
               { text: '📖 组页', link: '/02_PyTorch_Algorithms/2_8' },
@@ -280,7 +267,6 @@ export default defineConfig({
           { text: '📖 完整导学', link: '/03_Triton_Kernels/intro' },
           {
             text: '3.1 基础篇',
-            link: '/03_Triton_Kernels/3_1',
             collapsed: true,
             items: [
               { text: '📖 组页', link: '/03_Triton_Kernels/3_1' },
@@ -293,7 +279,6 @@ export default defineConfig({
           },
           {
             text: '3.2 过渡篇',
-            link: '/03_Triton_Kernels/3_2',
             collapsed: true,
             items: [
               { text: '📖 组页', link: '/03_Triton_Kernels/3_2' },
@@ -303,7 +288,6 @@ export default defineConfig({
           },
           {
             text: '3.3 进阶A：Attention优化',
-            link: '/03_Triton_Kernels/3_3',
             collapsed: true,
             items: [
               { text: '📖 组页', link: '/03_Triton_Kernels/3_3' },
@@ -314,7 +298,6 @@ export default defineConfig({
           },
           {
             text: '3.4 进阶B：推理优化',
-            link: '/03_Triton_Kernels/3_4',
             collapsed: true,
             items: [
               { text: '📖 组页', link: '/03_Triton_Kernels/3_4' },
@@ -324,7 +307,6 @@ export default defineConfig({
           },
           {
             text: '3.5 项目篇',
-            link: '/03_Triton_Kernels/3_5',
             collapsed: true,
             items: [
               { text: '📖 组页', link: '/03_Triton_Kernels/3_5' },
@@ -341,7 +323,6 @@ export default defineConfig({
           { text: '📖 完整导学', link: '/04_CUDA_and_System_Optimization/intro' },
           {
             text: '4.1 CUDA 编程基础',
-            link: '/04_CUDA_and_System_Optimization/4_1',
             collapsed: true,
             items: [
               { text: '📖 组页', link: '/04_CUDA_and_System_Optimization/4_1' },
@@ -351,7 +332,6 @@ export default defineConfig({
           },
           {
             text: '4.2 系统级性能优化',
-            link: '/04_CUDA_and_System_Optimization/4_2',
             collapsed: true,
             items: [
               { text: '📖 组页', link: '/04_CUDA_and_System_Optimization/4_2' },
@@ -361,7 +341,6 @@ export default defineConfig({
           },
           {
             text: '4.3 分布式训练工程',
-            link: '/04_CUDA_and_System_Optimization/4_3',
             collapsed: true,
             items: [
               { text: '📖 组页', link: '/04_CUDA_and_System_Optimization/4_3' },
@@ -371,7 +350,6 @@ export default defineConfig({
           },
           {
             text: '4.4 架构视野',
-            link: '/04_CUDA_and_System_Optimization/4_4',
             collapsed: true,
             items: [
               { text: '📖 组页', link: '/04_CUDA_and_System_Optimization/4_4' },
