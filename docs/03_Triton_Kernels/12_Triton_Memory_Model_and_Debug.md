@@ -1,4 +1,4 @@
-# 12. Triton Memory Model and Debug | Triton 内存模型、指针计算与 Debug 避坑指南
+# 12. Triton Memory Model and Debug | 内存模型、指针计算与 Debug 避坑指南
 
 **难度：** Hard | **标签：** `Triton`, `Memory Model`, `Debugging` | **目标人群：** 核心 Infra 与算子开发
 
@@ -50,7 +50,7 @@
 ### Step 3: 调试工具与机制框架
 本节学习两个常用调试手段：1. 使用 `tl.device_print('变量名', value)` 打印某个线程里的张量内容（影响性能，仅供调试）；2. 配置环境变量 `TRITON_INTERPRET=1` 让脚本退回到 CPU 纯 Python 模式运行，从而可以用 pdb 断点追踪内核逻辑。
 
-###  Step 4: 动手实战
+### Step 4: 动手实战
 
 **要求**：下方有三个“充满 Bug”的核函数片段，分别对应了新手常犯的三种致命错误。请你将其修复。
 
@@ -76,10 +76,6 @@ import os
 
 
 ```python
-import torch
-import triton
-import triton.language as tl
-import os
 
 # ==========================================
 # Bug 1: 忘记二维步长 (Stride)

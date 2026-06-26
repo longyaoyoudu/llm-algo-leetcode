@@ -1,5 +1,5 @@
 
-# 14. Triton 算子开发实战避坑指南 (Best Practices & FAQ)
+# 14. Triton Best Practices and FAQ | 算子开发实战避坑指南
 
 **难度：** Hard | **标签：** `Triton`, `End-to-End Project`, `LLaMA-3`, `Integration` | **目标人群：** 核心 Infra 与算子开发
 

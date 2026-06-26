@@ -1,4 +1,4 @@
-# 13. Triton Llama3 Block Project | 综合工程实战：使用 Triton 从头组装 LLaMA-3 Transformer Block
+# 13. Triton Llama3 Block Project | Triton 工程集成实战（LLaMA-3 Block）
 
 **难度：** Hard | **标签：** `Triton`, `End-to-End Project`, `LLaMA-3`, `Integration` | **目标人群：** 核心 Infra 与算子开发
 
@@ -10,15 +10,15 @@
 > [![Open In Studio](https://img.shields.io/badge/Open%20In-ModelScope-blueviolet?logo=alibabacloud)](https://modelscope.cn/my/mynotebook) *(国内推荐：魔搭社区免费实例)*
 
 
-这是本教程 **Triton 算子开发**章节的大考 (Capstone Project)。
-在工业界，写出几个零散的算子只是 Demo。你需要将这些算子封装成标准的 `torch.autograd.Function` 或标准的 `nn.Module`，去**平替** PyTorch 原生的极度耗时的层，最终拼装出一个完全由 Triton 加速的 `Llama3TritonBlock`。
+这是本教程 **Triton 算子开发**章节的工程集成题 (Capstone Project)。
+在工业界，写出几个零散的算子只是 Demo。你需要把这些算子接回标准的 `torch.autograd.Function` 或 `nn.Module` 接口，去**平替** PyTorch 原生的耗时层，最终拼装出一个可独立运行的 `Llama3TritonBlock`。
 
 在本节中，我们将：
-1. 回顾并集成我们在前几节手写的 Triton 算子。
-2. 封装 PyTorch 的 `nn.Module` 接口。
-3. 运行端到端的 Benchmark，直观感受到算子融合带来的性能收益。
+1. 回顾并接入前几节手写的 Triton 算子。
+2. 处理好 PyTorch `nn.Module` 的接口边界。
+3. 运行端到端的 Benchmark，验证工程集成后的收益。
 
-**说明：** 为了让 Notebook 可以独立运行，下面先提供一组 reference adapter 作为占位实现；如果你已经在当前 runtime 里加载了前序章节的真实 Triton kernel，可以直接把这些 adapter 替换成真实调用。
+**说明：** 为了让 Notebook 可以独立运行，下面先提供 reference adapter；如果你已经在当前 runtime 中加载了前序章节的真实 Triton kernel，可以直接替换。
 
 ## 前置
 
@@ -47,15 +47,15 @@
 > 2. 在 Layer 的 `forward` 方法中，直接调用包含 `kernel[grid](...)` 的 Triton 封装函数。
 > 3. （如果需要训练）继承 `torch.autograd.Function` 实现 `forward` 和 `backward`，并在 `nn.Module` 中调用 `YourFunction.apply`。本节为了聚焦前向推理性能，只集成推理部分的替换。
 
-### Step 2: 算子替换与模块集成规范
+### Step 2: 模型封装与接口隔离
 这是一个架构拼装工程。虽然我们在前面手写出了所有加速算子，但要组装回基于 `nn.Module` 的 PyTorch 模型中，必须处理好接口（Interface）封装问题，并确保前向传播在 AutoGrad (反向图) 中的逻辑隔离或兼容。
 
 ### Step 3: 集成代码框架
-定义一个 `Llama3TritonBlock(nn.Module)` 类。在 `__init__` 中保留 `nn.Linear` 管理权重，但在 `forward` 阶段，彻底废弃原生的 `F.silu` 等调用，将这些中间环节全面替换为你手写的 `triton_fused_swiglu` 和 `triton_flash_attention` 调用。
+定义一个 `Llama3TritonBlock(nn.Module)` 类。在 `__init__` 中保留 `nn.Linear` 管理权重，但在 `forward` 阶段，把原生算子替换为前序章节已经实现的 Triton 封装，并尽量保持接口与布局一致。
 
-###  Step 4: 动手实战
+### Step 4: 动手实战
 
-**要求**：请补全下方 `TritonLlama3Block`，使用我们在前序章节中构建的 Triton 算子，替换掉原生的算子。
+**要求**：请补全下方 `TritonLlama3Block`，把前序章节的 Triton 算子按工程接口接入模型前向路径。
 
 
 ```python
@@ -79,10 +79,6 @@ import math
 
 
 ```python
-import torch
-import torch.nn as nn
-import triton
-import math
 
 # ==========================================
 # 这里先给出纯 PyTorch reference adapter，方便 Notebook 独立运行。
@@ -138,31 +134,29 @@ class TritonLlama3Block(nn.Module):
         self.norm2_weight = nn.Parameter(torch.ones(dim))
         
     def forward(self, x, cos, sin):
-        # TODO 1: 集成 Triton RMSNorm（先确认 shape / stride / dtype 与前序 kernel 对齐）
-        h = triton_rmsnorm(x, self.norm1_weight)
+        # TODO 1: 接入第一层归一化（先确认 shape / stride / dtype 与前序 kernel 对齐）
+        # h = ???
         
         # QKV 投影并变维 (batch, seq, n_heads, head_dim)
-        batch_size, seq_len, _ = h.shape
-        q = self.attn_q(h).view(batch_size, seq_len, self.n_heads, self.head_dim).transpose(1, 2)
-        k = self.attn_k(h).view(batch_size, seq_len, self.n_heads, self.head_dim).transpose(1, 2)
-        v = self.attn_v(h).view(batch_size, seq_len, self.n_heads, self.head_dim).transpose(1, 2)
+        # batch_size, seq_len, _ = ???
+        # q = ???
+        # k = ???
+        # v = ???
         
-        # TODO 2: 集成 Triton 融合 RoPE（尽量避免在 PyTorch 层做多余 transpose）
-        q, k = triton_rope(q, k, cos, sin)
+        # TODO 2: 接入位置编码处理（尽量避免在 PyTorch 层做多余 transpose）
+        # q, k = ???
         
-        # TODO 3: 集成 Triton Flash Attention（注意输入布局与 causal / non-causal 约定）
-        attn_output = triton_flash_attn(q, k, v)
+        # TODO 3: 接入注意力主干（注意输入布局与 causal / non-causal 约定）
+        # attn_output = ???
         
         # 恢复形状并输出投影
-        attn_output = attn_output.transpose(1, 2).contiguous().view(batch_size, seq_len, -1)
-        h = x + self.attn_o(attn_output)
+        # attn_output = attn_output.transpose(1, 2).contiguous().view(batch_size, seq_len, -1)
+        # h = x + self.attn_o(attn_output)
         
-        # TODO 4: 集成 Triton MLP（关注残差连接、权重布局和融合边界）
-        normed_h = triton_rmsnorm(h, self.norm2_weight)
-        mlp_out = triton_swiglu(normed_h, self.mlp_gate.weight, self.mlp_up.weight, self.mlp_down.weight)
-        out = h + mlp_out
-        
-        return out
+        # TODO 4: 接入 MLP 分支（关注残差连接、权重布局和融合边界）
+        # out = ???
+
+        raise NotImplementedError("请先完成 TODO 1-4")
 
 import time
 
@@ -336,7 +330,7 @@ class TritonLlama3Block(nn.Module):
         self.norm2_weight = nn.Parameter(torch.ones(dim))
         
     def forward(self, x, cos, sin):
-        # TODO 1: 使用 Triton RMSNorm 替换原生 Norm
+        # TODO 1: 接入 Triton RMSNorm 替换原生 Norm
         h = triton_rmsnorm(x, self.norm1_weight)
         
         # QKV 投影并变维 (batch, seq, n_heads, head_dim)
@@ -345,17 +339,17 @@ class TritonLlama3Block(nn.Module):
         k = self.attn_k(h).view(batch_size, seq_len, self.n_heads, self.head_dim).transpose(1, 2)
         v = self.attn_v(h).view(batch_size, seq_len, self.n_heads, self.head_dim).transpose(1, 2)
         
-        # TODO 2: 使用 Triton 融合 RoPE 处理 q 和 k
+        # TODO 2: 接入 Triton 融合 RoPE 处理 q 和 k
         q, k = triton_rope(q, k, cos, sin)
         
-        # TODO 3: 使用 Triton Flash Attention
+        # TODO 3: 接入 Triton Flash Attention
         attn_output = triton_flash_attn(q, k, v)
         
         # 恢复形状并输出投影
         attn_output = attn_output.transpose(1, 2).contiguous().view(batch_size, seq_len, -1)
         h = x + self.attn_o(attn_output)
         
-        # TODO 4: MLP 部分
+        # TODO 4: 接入 Triton MLP 部分
         normed_h = triton_rmsnorm(h, self.norm2_weight)
         mlp_out = triton_swiglu(normed_h, self.mlp_gate.weight, self.mlp_up.weight, self.mlp_down.weight)
         out = h + mlp_out
@@ -408,7 +402,7 @@ class TritonLlama3Block(nn.Module):
 
 ### 解析
 
-**1. TODO 1: 使用 Triton RMSNorm 替换原生 Norm**
+**1. TODO 1: 接入第一层归一化到前向路径**
 - **实现方式**：
   ```python
   h = triton_rmsnorm(x, self.norm1_weight)
@@ -420,7 +414,7 @@ class TritonLlama3Block(nn.Module):
   - 输出 `h` 形状：`(batch, seq, dim)`
   - `self.norm1_weight` 是可学习的缩放参数，形状为 `(dim,)`
 
-**2. TODO 2: 使用 Triton 融合 RoPE 处理 q 和 k**
+**2. TODO 2: 接入位置编码处理到 q / k 路径**
 - **实现方式**：
   ```python
   q, k = triton_rope(q, k, cos, sin)
@@ -432,7 +426,7 @@ class TritonLlama3Block(nn.Module):
   - Triton RoPE 算子在 SRAM 中完成旋转操作，避免额外的内存分配
   - 返回的 `q` 和 `k` 已经应用了位置编码
 
-**3. TODO 3: 使用 Triton Flash Attention**
+**3. TODO 3: 接入注意力主干到前向路径**
 - **实现方式**：
   ```python
   attn_output = triton_flash_attn(q, k, v)
@@ -444,7 +438,7 @@ class TritonLlama3Block(nn.Module):
   - Flash Attention 使用分块计算和 Online Softmax，显存占用从 O(seq²) 降低到 O(seq)
   - 在 SRAM 中完成注意力计算，最小化 HBM 访问次数
 
-**4. TODO 4: MLP 部分**
+**4. TODO 4: 接入 MLP 到残差分支**
 - **实现方式**：
   ```python
   normed_h = triton_rmsnorm(h, self.norm2_weight)
@@ -481,19 +475,7 @@ class TritonLlama3Block(nn.Module):
 
 **工程优化要点**
 
-- **算子融合**：将多个操作融合到单个 Triton kernel 中，减少 HBM 访问次数
-- **中间张量消除**：原生 PyTorch 实现会产生大量中间张量（归一化输出、激活输出等），融合算子避免了这些开销
-- **Memory Bound 优化**：Transformer Block 的主要瓶颈在于 Memory Bound 操作（归一化、激活函数），Triton 算子在 SRAM 中完成这些计算
-- **模块化设计**：将底层 Triton kernel 封装为高层 Python 函数，便于集成到 PyTorch 模型中
-- **接口兼容性**：`TritonLlama3Block` 继承 `nn.Module`，与 PyTorch 生态完全兼容
-- **权重管理**：使用 `nn.Linear` 和 `nn.Parameter` 管理权重，保持与 PyTorch 的一致性
-- **工业级实践**：这种架构是 vLLM、DeepSpeed、TensorRT-LLM 等高性能推理引擎的标准做法
-- **性能收益**：
-  - 显存占用降低 30-50%（消除中间张量）
-  - 推理延迟降低 20-40%（减少 HBM 访问）
-  - 吞吐量提升 1.5-2x（更高的 GPU 利用率）
-- **适用场景**：
-  - 大模型推理服务（LLaMA、GPT、Mistral 等）
-  - 长上下文推理（Flash Attention 的显存优势）
-  - 多租户推理服务（显存节省允许更高并发）
-  - 边缘设备部署（显存和延迟受限的环境）
+- **算子融合**：把 RMSNorm / RoPE / FlashAttention / MLP 接回统一 forward，减少中间张量。
+- **接口兼容**：reference adapter 只用于 notebook 独立运行，真实环境可直接替换为前序 kernel。
+- **真实集成**：重点检查 shape、stride、layout 和 causal 约定是否一致。
+- **性能关注**：主要看前向时延和显存峰值，不再展开太多应用场景说明。
