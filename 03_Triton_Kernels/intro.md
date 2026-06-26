@@ -15,15 +15,17 @@
 
 如果你是在 Colab 里打开本部分，优先选择免费的 `T4 GPU`，或者任意可用的 GPU runtime。然后先运行 notebook 开头的环境准备单元；该单元会在 `triton` 缺失时自动安装依赖，避免直接在正文里 `import triton` 时报错。
 
-### 零基础过渡 5 Task
+这不是从零开始的入门章，建议先完成 Part 1 的 `1B`、`1D`（其中的 `18 / 19` 也属于这条前导链）和 Part 2 的基础算子、模型组装相关内容，再进入 Part 3。
 
-| Task | 对应入口 | 一句话目标 |
-|:---|:---|:---|
-| Task 1 | [3.1 基础篇](../docs/03_Triton_Kernels/3_1.md) | 认识 Triton 的编程模型和基础 kernel 写法。 |
-| Task 2 | [3.2 过渡篇](../docs/03_Triton_Kernels/3_2.md) | 通过 Softmax 和设计模式完成从基础算子到复杂算子的过渡。 |
-| Task 3 | [3.3 进阶A：Attention优化](../docs/03_Triton_Kernels/3_3.md) | 把 RoPE、FlashAttention 和 PagedAttention 串成一条 Attention 主线。 |
-| Task 4 | [3.4 进阶B：推理优化](../docs/03_Triton_Kernels/3_4.md) | 进入 Quantization 和 Multi-LoRA 的推理优化线。 |
-| Task 5 | [06.5 Triton 设计模式与过渡总结](../docs/03_Triton_Kernels/06_5_Triton_Design_Patterns.md) | 把 Triton 的常用模式收束成可复用骨架。 |
+### Part 3 学习路径
+
+- 先从 `3.1 基础篇` 进入，完成 Triton 的编程模型和基础 kernel 写法。
+- 再到 `3.2 过渡篇`，用 Softmax 和设计模式把基础算子过渡到复杂算子。
+- 接着顺着两条主线推进：
+  - `3.3 进阶A：Attention优化`
+  - `3.4 进阶B：推理优化`
+- `06.5 Triton 设计模式与过渡总结` 负责把前面的常用模式收束成可复用骨架。
+- 最后进入 `3.5 项目篇`，做调试、内存模型和综合项目。
 
 ### 学习组划分
 
@@ -52,7 +54,7 @@
 如果你希望先把 Part 3 的认知桥搭稳，建议回看 Part 1 的这条路径：
 
 - **基础认知层**：`1B / 1D`
-- **Triton 前置层**：`18 / 19`
+- **Triton 前置层**：`18 / 19`（隶属 Part 1 的 `1D：异构调度与算子编程`）
 - **分布式与系统边界**：`20`
 
 如果你对 GPU 访存、block / warp、shared memory、算子融合还不熟，先按 `1B -> 1D -> 18 -> 19` 的顺序回看，再进入 3.1 / 3.2 / 3.3 / 3.4 / 3.5 会更顺。
